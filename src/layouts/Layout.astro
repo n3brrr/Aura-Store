@@ -19,10 +19,12 @@ import "../styles/global.css";
     <script>
       import Lenis from "lenis";
 
+      // Initialize Lenis with modern configuration
       const lenis = new Lenis({
+        lerp: 0.1,
         duration: 1.2,
-        smooth: true,
-        smoothTouch: false,
+        smoothWheel: true,
+        wheelMultiplier: 1,
         touchMultiplier: 2,
         infinite: false,
       });
@@ -33,6 +35,17 @@ import "../styles/global.css";
       }
 
       requestAnimationFrame(raf);
+
+      // Smooth scroll to internal anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = anchor.getAttribute("href");
+          if (target) {
+            lenis.scrollTo(target);
+          }
+        });
+      });
     </script>
   </body>
 </html>

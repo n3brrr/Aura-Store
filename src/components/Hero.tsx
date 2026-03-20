@@ -9,7 +9,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
 
   return (
     <section
-      className="relative w-full h-svh overflow-hidden font-syne bg-[#f2f1ef]"
+      className="relative w-full h-svh overflow-hidden font-syne"
       id="hero"
     >
       {/* Border Box */}
@@ -56,7 +56,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
           {/* RIGHT */}
           <div className="flex flex-col items-end gap-3 md:pb-[7%] px-[2%]">
             {/* Card */}
-            <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 bg-[#eeecea]/60 backdrop-blur-sm w-28 sm:w-36 md:w-44 lg:w-[290px]">
+            <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 backdrop-blur-sm w-28 sm:w-36 md:w-44 lg:w-[290px]">
               <div className="overflow-hidden rounded-xl">
                 <img
                   src="/Hero-new-collection.webp"
