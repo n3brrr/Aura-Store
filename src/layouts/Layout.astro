@@ -1,11 +1,38 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Aura Store</title>
+    <title>Aura Store | Clothes without excess</title>
   </head>
-  <body>
-    <slot />
+  <body class="antialiased selection:bg-black selection:text-white">
+    <div class="paper-texture"></div>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <script>
+      import Lenis from "lenis";
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        smooth: true,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
   </body>
 </html>
