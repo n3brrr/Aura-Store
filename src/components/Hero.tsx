@@ -8,16 +8,19 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
   const [firstWord, secondWord] = brandName.split(" ");
 
   return (
-    <section className="relative w-full h-svh overflow-hidden font-syne bg-[#f2f1ef]">
+    <section
+      className="relative w-full h-svh overflow-hidden font-syne bg-[#f2f1ef]"
+      id="hero"
+    >
       {/* Border Box */}
-      <div className="absolute inset-[10%] md:inset-[6%] border-2 border-black/60 rounded-2xl z-0 pointer-events-none" />
+      <div className="absolute inset-[10%] md:inset-x-12 border-2 border-black/60 rounded-2xl z-0 pointer-events-none" />
 
       {/* LAYER 1: Título partido izq/der */}
       <div className="absolute inset-0 flex items-center justify-between pb-[12%] lg:pb-[8%] pointer-events-none select-none z-0">
-        <span className="font-black uppercase font-montserrat leading-none px-[10%] text-black text-[10vw] sm:text-[11vw]">
+        <span className="font-black uppercase font-montserrat leading-none px-[6%] text-black text-[10vw] sm:text-[11vw]">
           {firstWord}
         </span>
-        <span className="font-black uppercase font-montserrat leading-none px-[6%] lg:px-[8%] text-black text-[10vw] sm:text-[11vw] ">
+        <span className="font-black uppercase font-montserrat leading-none px-[4%] lg:px-[3%] text-black text-[10vw] sm:text-[11vw] ">
           {secondWord}
         </span>
       </div>
@@ -51,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
           </div>
 
           {/* RIGHT */}
-          <div className="flex flex-col items-end gap-3 md:pb-[6%] px-[2%]">
+          <div className="flex flex-col items-end gap-3 md:pb-[7%] px-[2%]">
             {/* Card */}
             <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 bg-[#eeecea]/60 backdrop-blur-sm w-28 sm:w-36 md:w-44 lg:w-[290px]">
               <div className="overflow-hidden rounded-xl">
