@@ -5,59 +5,75 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ brandName }) => {
+  const [firstWord, secondWord] = brandName.split(" ");
+
   return (
-    <section className="relative max-h-screen w-full flex flex-col justify-center items-center px-6 md:px-12 pt-20 overflow-hidden">
-      {/* Background Text Layer */}
-      <div className="absolute inset-0 flex justify-between items-center px-4 pointer-events-none select-none">
-        <h1 className="text-[5rem] font-black uppercase tracking-tighter text-black/[0.3] leading-none flex w-full justify-between tracking-tighter">
-          <span>{brandName.split(" ")[0]}</span>
-          <span>{brandName.split(" ")[1]}</span>
-        </h1>
+    <section className="relative w-full h-svh overflow-hidden font-syne bg-[#f2f1ef]">
+      {/* Border Box */}
+      <div className="absolute inset-[10%] md:inset-[6%] border-2 border-black/60 rounded-2xl z-0 pointer-events-none" />
+
+      {/* LAYER 1: Título partido izq/der */}
+      <div className="absolute inset-0 flex items-center justify-between pb-[12%] lg:pb-[8%] pointer-events-none select-none z-0">
+        <span className="font-black uppercase font-montserrat leading-none px-[10%] text-black text-[10vw] sm:text-[11vw]">
+          {firstWord}
+        </span>
+        <span className="font-black uppercase font-montserrat leading-none px-[6%] lg:px-[8%] text-black text-[10vw] sm:text-[11vw] ">
+          {secondWord}
+        </span>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl grid grid-cols-12 gap-4 items-center">
-        {/* Left Side: Statement */}
-        <div className="col-span-12 md:col-span-3 self-end mb-20 order-2 md:order-1">
-          <span className="text-4xl block mb-6">〄</span>
-          <h2 className="text-2xl font-extrabold uppercase leading-[0.9] mb-4">
-            Clothes without
-            <br />
-            excess. Only style.
-          </h2>
-          <p className="text-[10px] uppercase font-medium tracking-widest leading-relaxed opacity-60 max-w-[200px]">
-            Modern silhouettes, natural fabrics, and honest design.
-          </p>
-        </div>
+      {/* LAYER 2: Avatar */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[78vh] sm:h-[82vh] w-auto z-10 pointer-events-none select-none">
+        <img
+          src="/Hero-avatar.svg"
+          alt="Aura Avatar"
+          className="h-full w-auto object-contain object-bottom drop-shadow-2xl "
+        />
+      </div>
 
-        {/* Center: Main Image */}
-        <div className="col-span-12 md:col-span-6 flex justify-center order-1 md:order-2">
-          <div className="w-full overflow-hidden relative group">
-            <img
-              src="public/Hero-avatar.svg"
-              alt="Main Collection"
-              className="w-full h-full object-cover"
-            />
-            {/* Overlay para cuando animemos el reveal */}
-          </div>
-        </div>
-
-        {/* Right Side: Product Card */}
-        <div className="col-span-12 md:col-span-3 self-end mb-20 flex flex-col items-end order-3">
-          <div className="w-48 p-4 border border-black/10 rounded-xl mb-4">
-            <img
-              src="public/Hero-new-collection.webp"
-              className="w-full h-full object-cover"
-            />
+      {/* LAYER 3: Esquinas */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-end px-[8%]">
+        <div className="flex items-end justify-between w-full">
+          {/* LEFT */}
+          <div className="flex flex-col gap-3 sm:max-w-[200px] md:max-w-[320px] pb-[8%] px-[3%]">
+            <span className="text-xl sm:text-2xl md:text-3xl leading-none">
+              〄
+            </span>
+            <h2 className="font-extrabold uppercase leading-[0.88] tracking-tighter font-syne text-base sm:text-xl md:text-2xl lg:text-3xl">
+              Clothes without
+              <br />
+              excess. Only style.
+            </h2>
+            <p className="uppercase font-bold tracking-[0.12em] leading-relaxed opacity-70 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] max-w-[180px]">
+              Modern silhouettes, natural fabrics, <br /> and honest design. For
+              hose who choose simplicity.
+            </p>
           </div>
 
-          <button className="w-48 group relative px-6 border border-black rounded-full overflow-hidden transition-colors hover:bg-black hover:text-white">
-            <div className="flex justify-between items-center relative z-10">
-              <span className="text-[10px] font-black lowercase tracking-[0.2em]">
+          {/* RIGHT */}
+          <div className="flex flex-col items-end gap-3 md:pb-[6%] px-[2%]">
+            {/* Card */}
+            <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 bg-[#eeecea]/60 backdrop-blur-sm w-28 sm:w-36 md:w-44 lg:w-[290px]">
+              <div className="overflow-hidden rounded-xl">
+                <img
+                  src="/Hero-new-collection.webp"
+                  className="w-full h-auto"
+                  alt="New product"
+                />
+              </div>
+            </div>
+
+            {/* Button */}
+            <button
+              className="w-28 sm:w-36 md:w-44 lg:w-[290px] group border-2 border-black/25 rounded-full flex items-center justify-between gap-2 bg-transparent
+             hover:bg-black hover:text-[#f2f1ef] transition-all duration-400 py-2 sm:py-2.5 md:py-3 px-3 sm:px-4 md:px-5 max-h-[40px]"
+            >
+              <span className="font-black uppercase tracking-[0.15em] text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px]">
                 New Collection
               </span>
-              <span className="text-md">↗</span>
-            </div>
-          </button>
+              <span className="text-lg md:text-xl font-light">↗</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
