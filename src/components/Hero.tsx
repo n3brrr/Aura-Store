@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
         <img
           src="/Hero-avatar.svg"
           alt="Aura Avatar"
-          className="h-full w-auto object-contain object-bottom drop-shadow-2xl "
+          className="h-full w-auto object-contain object-bottom"
         />
       </div>
 
@@ -79,6 +79,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
           </div>
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-[#f4f4f4] to-transparent z-30" />
     </section>
   );
 };
