@@ -16,7 +16,7 @@ export default function ProductPreview({
   tag,
 }: ProductPreviewProps) {
   return (
-    <article className="group relat<{ive ">
+    <article className="group relative ">
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden mb-4 rounded-xl">
         {/* Placeholder Image */}
