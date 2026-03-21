@@ -3,10 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ShopGrid from "../components/ShopGrid";
+import Custom from "../components/Custom";
 ---
 
 <Layout>
   <Navbar />
   <Hero brandName="Aura Store" />
   <ShopGrid client:load />
+  <Custom client:load />
 </Layout>
