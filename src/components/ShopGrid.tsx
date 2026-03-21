@@ -4,37 +4,33 @@ import ProductPreview from "./ProductPreview";
 const PRODUCTS = [
   {
     id: 1,
-    name: "Minimal Sculpture Tee",
-    price: "€85.00",
+    name: "Skeleton Puffer",
+    price: "€185.00",
     category: "Upper body",
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2000&auto=format&fit=crop",
+    image: "/thumbs/puffer.webp",
     tag: "NEW",
   },
   {
     id: 2,
-    name: "Structured Oversize Blazer",
+    name: "Black Hoodie",
     price: "€320.00",
-    category: "Outerwear",
-    image:
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2000&auto=format&fit=crop",
+    category: "Upper body",
+    image: "/thumbs/hoodie.svg",
   },
   {
     id: 3,
-    name: "Wide Leg Trousers",
+    name: "Brutalism Hoodie",
     price: "€145.00",
-    category: "Lower body",
-    image:
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=2000&auto=format&fit=crop",
+    category: "Upper body",
+    image: "/thumbs/brutalism.svg",
     tag: "LIMITED",
   },
   {
     id: 4,
-    name: "Canvas Tote Bag",
+    name: "Goth Girl Hoodie",
     price: "€55.00",
-    category: "Accessories",
-    image:
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=2000&auto=format&fit=crop",
+    category: "Upper body",
+    image: "/thumbs/goth-girl.svg",
   },
 ];
 
