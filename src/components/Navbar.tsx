@@ -16,7 +16,7 @@ const navLinks: NavLink[] = [
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full z-100 px-6 py-8 md:px-12 flex justify-between items-start font-syne pointer-events-none">
+    <nav className="fixed top-0 left-0 w-full h-24 z-100 px-6 py-8 md:px-12 flex justify-between items-start font-syne pointer-events-none backdrop-blur-xl">
       {/* Logo & Brand - Pointer events enable para clicks */}
       <div className="pointer-events-auto">
         <a href="#hero" className="group">
@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
               <a
                 href={link.href}
                 className={`text-[20px] font-extrabold lowercase tracking-[0.2em] transition-all duration-300 relative group
-                  ${link.isActive ? "opacity-100" : "opacity-40 hover:opacity-100"}`}
+                  ${link.isActive ? "opacity-100 underline underline-offset-4" : "opacity-40 hover:opacity-100 "}`}
               >
                 {link.label}
               </a>
