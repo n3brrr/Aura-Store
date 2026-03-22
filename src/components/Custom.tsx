@@ -8,7 +8,7 @@ const PRODUCTS = [
   {
     id: "001",
     name: "SKELETON PUFFER",
-    svg: "/thumbs/hoodie.svg",
+    svg: "/thumbs/puffer.svg",
     specs: [
       { label: "CHEST", value: "58 CM" },
       { label: "LENGTH", value: "72 CM" },
@@ -21,7 +21,7 @@ const PRODUCTS = [
   {
     id: "002",
     name: "CROSS HOODIE",
-    svg: "/thumbs/puffer.webp",
+    svg: "/thumbs/brutalism.svg",
     specs: [
       { label: "CHEST", value: "62 CM" },
       { label: "LENGTH", value: "74 CM" },
@@ -34,7 +34,7 @@ const PRODUCTS = [
   {
     id: "003",
     name: "SPIDER JACKET",
-    svg: "/thumbs/hoodie.svg",
+    svg: "/Prueba.svg",
     specs: [
       { label: "CHEST", value: "60 CM" },
       { label: "LENGTH", value: "70 CM" },
@@ -123,19 +123,19 @@ function ScannerReveal({ items, trigger }) {
           >
             {/* Scan line flash effect per row */}
             <motion.div
-              className="absolute left-0 right-0 h-1px bg-black/20"
+              className="absolute left-0 right-0 h-1px bg-black/40"
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: [0, 1, 0] }}
               transition={{ duration: 0.2, delay: 0.35 + i * 0.08 }}
             />
             <span
-              className="text-[9px] tracking-[0.2em] text-black/40 font-mono uppercase shrink-0"
+              className="text-[9px] tracking-[0.2em] text-black/80 font-syne uppercase shrink-0"
               style={{ minWidth: "72px" }}
             >
               {item.label}
             </span>
-            <span className="w-full h-1px bg-black/10" />
-            <span className="text-[9px] tracking-[0.15em] text-black/70 font-mono uppercase whitespace-nowrap">
+            <span className="w-full h-3px bg-black/20" />
+            <span className="text-[12px] tracking-[0.18em] text-black/80 font-syne uppercase whitespace-nowrap">
               {item.value}
             </span>
           </motion.div>
@@ -183,23 +183,13 @@ export default function AuraStoreHero() {
         fontFamily: "montserrat",
       }}
     >
-      {/* ── Noise texture overlay ────────────────────────────── */}
-      <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px",
-        }}
-      />
-
       {/* ── Glitch Overlay ───────────────────────────────────── */}
       <GlitchOverlay active={glitching} />
 
       {/* ── WATERMARK TEXT ───────────────────────────────────── */}
-      <div className="absolute inset-0 flex items-center justify-between px-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-between px-5 pointer-events-none z-0 overflow-hidden m-5">
         <span
-          className="text-[12vw] font-black uppercase leading-none tracking-tighter"
+          className="text-[14vw] font-black uppercase tracking-tighter "
           style={{
             color: "rgba(0,0,0,0.055)",
             fontStretch: "condensed",
@@ -210,7 +200,7 @@ export default function AuraStoreHero() {
           AURA
         </span>
         <span
-          className="text-[12vw] font-black uppercase leading-none tracking-tighter"
+          className="text-[12vw] font-black gap-2 uppercase leading-none tracking-tighter"
           style={{
             color: "rgba(0,0,0,0.055)",
             fontStretch: "condensed",
@@ -229,7 +219,7 @@ export default function AuraStoreHero() {
             key={displayIdx}
             src={product.svg}
             alt={product.name}
-            className="h-[72vh] w-auto object-contain"
+            className="h-[88vh] w-auto object-contain mt-10"
             initial={{ opacity: 0, scale: 0.97, filter: "blur(6px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 1.02, filter: "blur(4px)" }}
@@ -240,12 +230,12 @@ export default function AuraStoreHero() {
       </div>
 
       {/* ── BOTTOM LEFT: Product Info + Specs ────────────────── */}
-      <div className="absolute bottom-8 left-8 z-20 max-w-xs">
+      <div className="absolute bottom-14 left-22 z-20 max-w-md ">
         {/* Item number */}
         <AnimatePresence mode="wait">
           <motion.p
             key={`num-${displayIdx}`}
-            className="text-[9px] tracking-[0.25em] text-black/40 font-mono uppercase mb-1"
+            className="text-[11px] tracking-[0.25em] text-black/40 font-bold uppercase mb-1"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -259,7 +249,7 @@ export default function AuraStoreHero() {
         <AnimatePresence mode="wait">
           <motion.h2
             key={`name-${displayIdx}`}
-            className="text-[22px] font-black uppercase tracking-[0.05em] leading-none mb-3"
+            className="text-[22px] font-bold uppercase tracking-[0.05em] leading-none mb-3"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
@@ -271,7 +261,7 @@ export default function AuraStoreHero() {
 
         {/* ── Technical Spec Sheet (Scanner reveal) ── */}
         <div className="border-t border-black/10 pt-2">
-          <p className="text-[8px] tracking-[0.3em] text-black/30 font-mono uppercase mb-1">
+          <p className="text-[14px] tracking-[0.3em] text-black/30 font-syne uppercase mb-1">
             FICHA TÉCNICA
           </p>
           <ScannerReveal items={product.specs} trigger={specTrigger} />
@@ -279,7 +269,7 @@ export default function AuraStoreHero() {
 
         {/* View Details button */}
         <motion.button
-          className="mt-5 w-52 bg-black text-white text-[10px] tracking-[0.25em] uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all"
+          className="mt-5 w-full bg-black text-white text-[10px] tracking-[0.25em] rounded-xl uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all"
           whileHover={{ letterSpacing: "0.32em" }}
           transition={{ duration: 0.15 }}
         >
@@ -288,17 +278,14 @@ export default function AuraStoreHero() {
       </div>
 
       {/* ── RIGHT: Piece Selector ─────────────────────────────── */}
-      <div className="absolute right-5 bottom-8 z-20 flex flex-col gap-3">
-        <p className="text-[8px] tracking-[0.28em] text-black/40 font-mono uppercase text-center mb-1">
-          SELECT PIECE
-        </p>
+      <div className="absolute right-15 bottom-14 z-20 flex flex-col gap-3">
         {PRODUCTS.map((p, i) => (
           <motion.button
             key={p.id}
             onClick={() => handleSelect(i)}
-            className={`w-16 h-16 overflow-hidden transition-all duration-200 relative ${
+            className={`w-32 h-32 overflow-hidden transition-all duration-350 relative ${
               active === i
-                ? "border-[1.5px] border-black shadow-[2px_2px_0px_rgba(0,0,0,0.15)]"
+                ? "border-[1.5px] border-black"
                 : "border border-black/20 opacity-60 hover:opacity-100"
             }`}
             whileHover={{ scale: 1.04 }}
