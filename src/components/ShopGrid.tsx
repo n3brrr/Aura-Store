@@ -7,7 +7,7 @@ const PRODUCTS = [
     name: "Skeleton Puffer",
     price: "€185.00",
     category: "Upper body",
-    image: "/thumbs/puffer.webp",
+    image: "/thumbs/puffer.svg",
     tag: "NEW",
   },
   {
@@ -15,7 +15,7 @@ const PRODUCTS = [
     name: "Black Hoodie",
     price: "€320.00",
     category: "Upper body",
-    image: "/thumbs/hoodie.svg",
+    image: "/thumbs/tribalism.svg",
   },
   {
     id: 3,
@@ -36,10 +36,7 @@ const PRODUCTS = [
 
 export default function ShopGrid() {
   return (
-    <section
-      className="px-6 md:px-12 py-32 bg-white h-screen border-b border-black/80"
-      id="shop"
-    >
+    <section className="px-6 md:px-12 py-32 bg-white h-screen" id="shop">
       <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
         <div>
           <h4 className="text-[10px] font-black uppercase tracking-widest text-black/40 mb-2">
@@ -59,6 +56,7 @@ export default function ShopGrid() {
           <ProductPreview key={product.id} {...product} />
         ))}
       </div>
+      <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-[#f4f4f4] to-transparent z-10" />
     </section>
   );
 }
