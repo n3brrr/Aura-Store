@@ -36,7 +36,10 @@ const PRODUCTS = [
 
 export default function ShopGrid() {
   return (
-    <section className="px-6 md:px-12 py-32 bg-white h-screen border-b border-black/80">
+    <section
+      className="px-6 md:px-12 py-32 bg-white h-screen border-b border-black/80"
+      id="shop"
+    >
       <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
         <div>
           <h4 className="text-[10px] font-black uppercase tracking-widest text-black/40 mb-2">
