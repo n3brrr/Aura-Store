@@ -1,0 +1,157 @@
+import { useState, useEffect } from "react";
+
+const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$_-=";
+const BATCH_TEXT = "LOT-2025-AURA-001";
+
+function useScrambleHover(text: string) {
+  const [out, setOut] = useState(text);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (!active) {
+      setOut(text);
+      return;
+    }
+    let frame = 0;
+    const id = setInterval(() => {
+      frame++;
+      if (frame > 8) {
+        setOut(text);
+        clearInterval(id);
+        return;
+      }
+      const arr = text.split("");
+      const n = Math.floor(Math.random() * 3) + 1;
+      for (let i = 0; i < n; i++) {
+        arr[Math.floor(Math.random() * arr.length)] =
+          GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+      }
+      setOut(arr.join(""));
+    }, 55);
+    return () => clearInterval(id);
+  }, [active, text]);
+
+  return { out, setActive };
+}
+
+// Care icon row — unicode symbols styled as washing symbols
+const CARE_SYMBOLS = [
+  { symbol: "○", label: "30°C" },
+  { symbol: "▽", label: "DRY" },
+  { symbol: "⊠", label: "NO BLEACH" },
+  { symbol: "↯", label: "IRON LOW" },
+  { symbol: "♻", label: "RECYCLE" },
+];
+
+export default function FooterBatchInfo() {
+  const { out: batchOut, setActive } = useScrambleHover(BATCH_TEXT);
+
+  return (
+    <div className="flex flex-col gap-4 items-end">
+      {/* Meta rows */}
+      <div className="flex flex-col gap-[3px] items-end">
+        <div className="flex items-center gap-3">
+          <span
+            className="text-[7.5px] tracking-[0.3em] uppercase opacity-45"
+            style={{ fontFamily: "Syne, sans-serif" }}
+          >
+            BATCH
+          </span>
+          <span
+            className="text-[9px] font-bold tracking-widest cursor-default select-none transition-all"
+            style={{
+              fontFamily: "Montserrat, monospace",
+              fontVariantNumeric: "tabular-nums",
+            }}
+            onMouseEnter={() => setActive(true)}
+            onMouseLeave={() => setActive(false)}
+          >
+            {batchOut}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span
+            className="text-[10px] tracking-[0.3em] uppercase opacity-45"
+            style={{ fontFamily: "Syne, sans-serif" }}
+          >
+            MADE IN
+          </span>
+          <span
+            className="text-[12px] font-bold tracking-widest"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            INTERNET — SINCE MMXXV
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span
+            className="text-[10px] tracking-[0.3em] uppercase opacity-45"
+            style={{ fontFamily: "Syne, sans-serif" }}
+          >
+            ORIGIN
+          </span>
+          <span
+            className="text-[12px] font-bold tracking-widest"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            NET — 000.000.000.000
+          </span>
+        </div>
+      </div>
+
+      {/* QC Stamp + Care symbols */}
+      <div className="flex items-center gap-5">
+        {/* Care symbols */}
+        <div className="flex gap-4">
+          {CARE_SYMBOLS.map(({ symbol, label }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-[2px] group cursor-default"
+            >
+              <span
+                className="text-[20px] leading-none transition-transform group-hover:scale-125"
+                style={{ fontFamily: "monospace" }}
+              >
+                {symbol}
+              </span>
+              <span
+                className="text-[7.5px] tracking-[0.2em] uppercase opacity-40 group-hover:opacity-100 transition-opacity"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* QC PASSED stamp */}
+        <div
+          className="relative flex items-center justify-center border-2 border-black px-2 py-1"
+          style={{ transform: "rotate(-5deg)" }}
+        >
+          <div className="flex flex-col items-center">
+            <span
+              className="text-[9px] tracking-[0.4em] uppercase font-black"
+              style={{ fontFamily: "Syne, sans-serif" }}
+            >
+              QC
+            </span>
+            <span
+              className="text-[9px] tracking-[0.3em] uppercase font-black"
+              style={{ fontFamily: "Syne, sans-serif" }}
+            >
+              PASSED
+            </span>
+          </div>
+          {/* Corner marks */}
+          <span className="absolute -top-[3px] -left-[3px] w-[5px] h-[5px] border-t-2 border-l-2 border-black" />
+          <span className="absolute -top-[3px] -right-[3px] w-[5px] h-[5px] border-t-2 border-r-2 border-black" />
+          <span className="absolute -bottom-[3px] -left-[3px] w-[5px] h-[5px] border-b-2 border-l-2 border-black" />
+          <span className="absolute -bottom-[3px] -right-[3px] w-[5px] h-[5px] border-b-2 border-r-2 border-black" />
+        </div>
+      </div>
+    </div>
+  );
+}
