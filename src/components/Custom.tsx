@@ -1,14 +1,14 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useAnimate } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import Product3d from "./ui/Product3d";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
-// SVGs assumed to be in /public: /piece-1.svg, /piece-2.svg, /piece-3.svg
 const PRODUCTS = [
   {
     id: "001",
     name: "SKELETON PUFFER",
-    svg: "/thumbs/puffer.svg",
+    svg: "/Item001.svg",
     specs: [
       { label: "CHEST", value: "58 CM" },
       { label: "LENGTH", value: "72 CM" },
@@ -21,7 +21,7 @@ const PRODUCTS = [
   {
     id: "002",
     name: "CROSS HOODIE",
-    svg: "/thumbs/brutalism.svg",
+    svg: "/Item002.svg",
     specs: [
       { label: "CHEST", value: "62 CM" },
       { label: "LENGTH", value: "74 CM" },
@@ -34,7 +34,7 @@ const PRODUCTS = [
   {
     id: "003",
     name: "SPIDER JACKET",
-    svg: "/Prueba.svg",
+    svg: "/Item003.svg",
     specs: [
       { label: "CHEST", value: "60 CM" },
       { label: "LENGTH", value: "70 CM" },
@@ -82,11 +82,7 @@ function GlitchOverlay({ active }) {
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0] }}
-              transition={{
-                duration: 0.08,
-                delay: i * 0.03,
-                repeat: 2,
-              }}
+              transition={{ duration: 0.08, delay: i * 0.03, repeat: 2 }}
             />
           ))}
           {/* White flash pulse */}
@@ -101,7 +97,7 @@ function GlitchOverlay({ active }) {
   );
 }
 
-// ─── Scanner Line (the "printer" that draws specs) ───────────────────────────
+// ─── Scanner Reveal ───────────────────────────────────────────────────────────
 function ScannerReveal({ items, trigger }) {
   return (
     <div className="flex flex-col gap-[2px] mt-3">
@@ -121,7 +117,6 @@ function ScannerReveal({ items, trigger }) {
               opacity: { duration: 0.05, delay: 0.35 + i * 0.08 },
             }}
           >
-            {/* Scan line flash effect per row */}
             <motion.div
               className="absolute left-0 right-0 h-1px bg-black/40"
               initial={{ scaleX: 0, originX: 0 }}
@@ -157,16 +152,13 @@ export default function AuraStoreHero() {
     if (idx === active || glitching) return;
     pendingRef.current = idx;
 
-    // 1 — Glitch flash
     setGlitching(true);
 
-    // 2 — Mid-glitch: swap image
     setTimeout(() => {
       setDisplayIdx(pendingRef.current);
       setActive(pendingRef.current);
     }, 180);
 
-    // 3 — Clear glitch, trigger spec scanner
     setTimeout(() => {
       setGlitching(false);
       setSpecTrigger((t) => t + 1);
@@ -178,18 +170,15 @@ export default function AuraStoreHero() {
   return (
     <div
       className="relative w-full h-screen overflow-hidden select-none"
-      style={{
-        backgroundColor: "#E8E7E3",
-        fontFamily: "montserrat",
-      }}
+      style={{ backgroundColor: "#E8E7E3", fontFamily: "montserrat" }}
     >
-      {/* ── Glitch Overlay ───────────────────────────────────── */}
+      {/* ── Glitch Overlay ─────────────────────────────────── */}
       <GlitchOverlay active={glitching} />
 
-      {/* ── WATERMARK TEXT ───────────────────────────────────── */}
+      {/* ── Watermark ──────────────────────────────────────── */}
       <div className="absolute inset-0 flex items-center justify-between px-5 pointer-events-none z-0 overflow-hidden m-5">
         <span
-          className="text-[14vw] font-black uppercase tracking-tighter "
+          className="text-[14vw] font-black uppercase tracking-tighter"
           style={{
             color: "rgba(0,0,0,0.055)",
             fontStretch: "condensed",
@@ -212,26 +201,11 @@ export default function AuraStoreHero() {
         </span>
       </div>
 
-      {/* ── CENTRAL PRODUCT IMAGE ────────────────────────────── */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={displayIdx}
-            src={product.svg}
-            alt={product.name}
-            className="h-[88vh] w-auto object-contain mt-10"
-            initial={{ opacity: 0, scale: 0.97, filter: "blur(6px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 1.02, filter: "blur(4px)" }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
-            style={{ mixBlendMode: "multiply" }}
-          />
-        </AnimatePresence>
-      </div>
+      {/* ── CENTRAL PRODUCT IMAGE — ahora con efecto 2.5D ──── */}
+      <Product3d src={product.svg} alt={product.name} displayIdx={displayIdx} />
 
-      {/* ── BOTTOM LEFT: Product Info + Specs ────────────────── */}
-      <div className="absolute bottom-14 left-22 z-20 max-w-md ">
-        {/* Item number */}
+      {/* ── Bottom Left: Product Info + Specs ──────────────── */}
+      <div className="absolute bottom-14 left-22 z-20 max-w-md">
         <AnimatePresence mode="wait">
           <motion.p
             key={`num-${displayIdx}`}
@@ -245,7 +219,6 @@ export default function AuraStoreHero() {
           </motion.p>
         </AnimatePresence>
 
-        {/* Product name */}
         <AnimatePresence mode="wait">
           <motion.h2
             key={`name-${displayIdx}`}
@@ -259,7 +232,6 @@ export default function AuraStoreHero() {
           </motion.h2>
         </AnimatePresence>
 
-        {/* ── Technical Spec Sheet (Scanner reveal) ── */}
         <div className="border-t border-black/10 pt-2">
           <p className="text-[14px] tracking-[0.3em] text-black/30 font-syne uppercase mb-1">
             FICHA TÉCNICA
@@ -267,7 +239,6 @@ export default function AuraStoreHero() {
           <ScannerReveal items={product.specs} trigger={specTrigger} />
         </div>
 
-        {/* View Details button */}
         <motion.button
           className="mt-5 w-full bg-black text-white text-[10px] tracking-[0.25em] rounded-xl uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all"
           whileHover={{ letterSpacing: "0.32em" }}
@@ -277,7 +248,7 @@ export default function AuraStoreHero() {
         </motion.button>
       </div>
 
-      {/* ── RIGHT: Piece Selector ─────────────────────────────── */}
+      {/* ── Right: Piece Selector ───────────────────────────── */}
       <div className="absolute right-15 bottom-14 z-20 flex flex-col gap-3">
         {PRODUCTS.map((p, i) => (
           <motion.button
@@ -297,7 +268,6 @@ export default function AuraStoreHero() {
               className="w-full h-full object-cover"
               style={{ mixBlendMode: "multiply", backgroundColor: "#ddd" }}
             />
-            {/* Active indicator dot */}
             {active === i && (
               <motion.div
                 className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-black rounded-full"
@@ -309,7 +279,7 @@ export default function AuraStoreHero() {
         ))}
       </div>
 
-      {/* ── Scanner progress bar (bottom) ────────────────────── */}
+      {/* ── Scanner progress bar ────────────────────────────── */}
       <AnimatePresence>
         {glitching && (
           <motion.div
