@@ -6,57 +6,60 @@ const PRODUCTS = [
     id: 1,
     name: "Skeleton Puffer",
     price: "€185.00",
-    category: "Upper body",
+    category: "Outerwear",
     image: "/thumbs/puffer.svg",
+    secondaryImage: "/thumbs/puffer-inverted.svg",
     tag: "NEW",
   },
   {
     id: 2,
     name: "Black Hoodie",
     price: "€320.00",
-    category: "Upper body",
+    category: "Essentials",
     image: "/thumbs/tribalism.svg",
+    secondaryImage: "/thumbs/tribalism-inverted.svg",
   },
   {
     id: 3,
     name: "Brutalism Hoodie",
     price: "€145.00",
-    category: "Upper body",
+    category: "Essentials",
     image: "/thumbs/brutalism.svg",
+    secondaryImage: "/thumbs/brutalism-inverted.svg",
     tag: "LIMITED",
   },
   {
     id: 4,
     name: "Goth Girl Hoodie",
     price: "€55.00",
-    category: "Upper body",
+    category: "Essentials",
     image: "/thumbs/goth-girl.svg",
+    secondaryImage: "/thumbs/goth-girl-inverted.svg",
   },
 ];
 
 export default function ShopGrid() {
   return (
-    <section className="px-6 md:px-12 py-32 bg-white h-screen" id="shop">
-      <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
-        <div>
-          <h4 className="text-[10px] font-black uppercase tracking-widest text-black/40 mb-2">
-            Seasonal Selections
+    <section
+      className="px-6 md:px-12 py-32 bg-white relative overflow-hidden"
+      id="shop"
+    >
+      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div className="space-y-4">
+          <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30">
+            Seasonal Selections / 2026
           </h4>
-          <h2 className="text-5xl font-black uppercase tracking-tighter max-w-xl leading-none">
-            Curated pieces for a timeless wardrobe
+          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter max-w-2xl leading-[0.85] font-syne">
+            Best pieces <br /> of the season
           </h2>
         </div>
-        <button className="text-xs font-black uppercase tracking-widest pb-1 border-b-2 border-black hover:opacity-50 transition-opacity">
-          View All Collection
-        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-x-8 md:gap-y-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {PRODUCTS.map((product) => (
           <ProductPreview key={product.id} {...product} />
         ))}
       </div>
-      <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-[#f4f4f4] to-transparent z-10" />
     </section>
   );
 }
