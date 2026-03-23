@@ -171,6 +171,7 @@ export default function AuraStoreHero() {
     <div
       className="relative w-full h-screen overflow-hidden select-none"
       style={{ backgroundColor: "#E8E7E3", fontFamily: "montserrat" }}
+      id="custom"
     >
       {/* ── Glitch Overlay ─────────────────────────────────── */}
       <GlitchOverlay active={glitching} />
@@ -243,6 +244,7 @@ export default function AuraStoreHero() {
           className="mt-5 w-full bg-black text-white text-[10px] tracking-[0.25em] rounded-xl uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all"
           whileHover={{ letterSpacing: "0.32em" }}
           transition={{ duration: 0.15 }}
+          onClick={() => window.location.assign("/ComingSoon")}
         >
           VIEW DETAILS
         </motion.button>

@@ -120,10 +120,12 @@ export default function ProductPreview({
       className="group relative cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => window.location.assign("/ComingSoon")}
       ref={scope}
     >
       {/* ── Image Container ───────────────────────────────────── */}
-      <div className="relative w-full aspect-square overflow-hidden mb-4 rounded-xl bg-gray-100">
+
+      <div className="relative w-full aspect-square overflow-hidden mb-4 rounded-xl">
         {/* Primary Image */}
         <img
           src={image}

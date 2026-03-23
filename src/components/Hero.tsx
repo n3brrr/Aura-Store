@@ -68,6 +68,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
 
             {/* Button */}
             <button
+              onClick={() => window.location.assign("/ComingSoon")}
               className="w-28 sm:w-36 md:w-44 lg:w-[290px] group border-2 border-black/25 rounded-full flex items-center justify-between gap-2 bg-transparent
              hover:bg-black hover:text-[#f2f1ef] transition-all duration-400 py-2 sm:py-2.5 md:py-3 px-3 sm:px-4 md:px-5 max-h-[40px]"
             >

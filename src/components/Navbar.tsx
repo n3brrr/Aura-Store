@@ -7,11 +7,11 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: "Main", href: "#", isActive: true },
-  { label: "Shop", href: "#shop", isActive: false },
-  { label: "Custom", href: "#custom", isActive: false },
-  { label: "About", href: "#about", isActive: false },
-  { label: "Contact", href: "#contact", isActive: false },
+  { label: "Main", href: "/", isActive: true },
+  { label: "Shop", href: "/#shop", isActive: false },
+  { label: "Custom", href: "/#custom", isActive: false },
+  { label: "About", href: "/ComingSoon", isActive: false },
+  { label: "Contact", href: "/ComingSoon", isActive: false },
 ];
 
 const Navbar: React.FC = () => {
