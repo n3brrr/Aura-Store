@@ -202,7 +202,7 @@ export default function AuraStoreHero() {
         </span>
       </div>
 
-      {/* ── CENTRAL PRODUCT IMAGE — ahora con efecto 2.5D ──── */}
+      {/* ── CENTRAL PRODUCT IMAGE──── */}
       <Product3d src={product.svg} alt={product.name} displayIdx={displayIdx} />
 
       {/* ── Bottom Left: Product Info + Specs ──────────────── */}
@@ -235,7 +235,7 @@ export default function AuraStoreHero() {
 
         <div className="border-t border-black/10 pt-2">
           <p className="text-[14px] tracking-[0.3em] text-black/60 font-syne uppercase mb-1">
-            FICHA TÉCNICA
+            SPECIFICATIONS
           </p>
           <ScannerReveal items={product.specs} trigger={specTrigger} />
         </div>
