@@ -80,7 +80,8 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-[#f4f4f4] to-transparent z-30" />
+      {/* Degradado para mezclar suavemente con la sección inferior (ShopGrid - fondo blanco) */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-white to-transparent z-30 pointer-events-none" />
     </section>
   );
 };

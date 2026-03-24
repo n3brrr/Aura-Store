@@ -60,6 +60,8 @@ export default function ShopGrid() {
           <ProductPreview key={product.id} {...product} />
         ))}
       </div>
+      {/* Gradient to mix with the bottom section */}
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-linear-to-t from-[#E8E7E3] to-transparent z-30 pointer-events-none" />
     </section>
   );
 }

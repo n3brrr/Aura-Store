@@ -1,6 +1,7 @@
 "use client";
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useAnimate, animate } from "motion/react";
+import GlichLetters from "./ui/GlichLetters";
 
 interface ProductPreviewProps {
   image: string;
@@ -115,6 +116,13 @@ export default function ProductPreview({
     });
   }, [secondaryImage, scope]);
 
+  const [isGlitching, setIsGlitching] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsGlitching(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <article
       className="group relative cursor-pointer"
@@ -124,7 +132,6 @@ export default function ProductPreview({
       ref={scope}
     >
       {/* ── Image Container ───────────────────────────────────── */}
-
       <div className="relative w-full aspect-square overflow-hidden mb-4 rounded-xl">
         {/* Primary Image */}
         <img
@@ -173,7 +180,7 @@ export default function ProductPreview({
               mixBlendMode: "overlay",
             }}
             animate={{ opacity: isHovered ? 0.04 : 0 }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: 0.15 }}
           />
         )}
 
@@ -190,14 +197,14 @@ export default function ProductPreview({
       {/* ── Info ─────────────────────────────────────────────── */}
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-lg font-bold uppercase tracking-tight mb-1">
-            {name}
+          <h3 className="text-md font-bold uppercase tracking-tight mb-1 ml-2">
+            <GlichLetters text={name} active={isGlitching} />
           </h3>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">
-            {category}
+          <p className="text-xs text-gray-500 uppercase tracking-wider ml-2">
+            <GlichLetters text={category} active={isGlitching} />
           </p>
         </div>
-        <span className="text-lg font-bold">{price}</span>
+        <span className="text-md font-bold opacity-90">{price}</span>
       </div>
     </article>
   );

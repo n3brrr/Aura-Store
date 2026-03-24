@@ -210,7 +210,7 @@ export default function AuraStoreHero() {
         <AnimatePresence mode="wait">
           <motion.p
             key={`num-${displayIdx}`}
-            className="text-[11px] tracking-[0.25em] text-black/40 font-bold uppercase mb-1"
+            className="text-[11px] tracking-[0.25em] text-black/80 font-bold uppercase mb-1"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -234,7 +234,7 @@ export default function AuraStoreHero() {
         </AnimatePresence>
 
         <div className="border-t border-black/10 pt-2">
-          <p className="text-[14px] tracking-[0.3em] text-black/30 font-syne uppercase mb-1">
+          <p className="text-[14px] tracking-[0.3em] text-black/60 font-syne uppercase mb-1">
             FICHA TÉCNICA
           </p>
           <ScannerReveal items={product.specs} trigger={specTrigger} />

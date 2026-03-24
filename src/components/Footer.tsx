@@ -23,38 +23,28 @@ export default function Footer() {
 
   return (
     <div className="pt-16 flex flex-col relative w-full">
+      <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-[#E8E7E3] to-transparent z-10 pointer-events-none" />
       {/* ── The Care Label: cut-line separator lives OUTSIDE the box ── */}
       <div className="mx-8">
         <FooterCutLine key={cutLineKey} onHalt={handleHalt} />
       </div>
 
       {/* ── The actual care label container ──────────────────────────── */}
-      <footer
-        className="mx-8 mb-8 border-2 border-t-0 border-black bg-[#e5e5e5] overflow-hidden"
-        style={{ fontFamily: "Syne, sans-serif" }}
-      >
+      <footer className="mx-8 mb-8 border-2 border-t-0 border-black bg-[#e5e5e5] overflow-hidden font-syne">
         {/* ── Row 1: Barcode ++ Brand stamp ++ Batch/QC ──────────────── */}
-        <div className="flex items-end justify-between px-12 py-10 border-b-2 border-black">
+
+        <div className="grid grid-cols-3 items-center justify-between px-12 py-10 border-b-2 border-black">
           <FooterBarcode />
 
           {/* Center: Brand stamp */}
-          <div className="flex flex-col items-center gap-1 select-none">
-            <span
-              className="text-[44px] font-black uppercase leading-none tracking-[-0.04em]"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
+          <div className="flex flex-col items-center gap-1 select-none mt-5">
+            <span className="text-[50px]  font-black uppercase leading-none tracking-[0.02em] font-montserrat">
               AURA
             </span>
-            <span
-              className="text-[14px] tracking-[0.5em] uppercase font-bold opacity-60"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
+            <span className="text-[20px] tracking-[0.4em] uppercase font-bold font-syne">
               STORE
             </span>
-            <span
-              className="text-[8px] tracking-[0.4em] uppercase opacity-25 mt-2"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
+            <span className="text-[10px] tracking-[0.4em] uppercase opacity-80 mt-1 font-syne">
               CARE LABEL — REF. 001
             </span>
           </div>
