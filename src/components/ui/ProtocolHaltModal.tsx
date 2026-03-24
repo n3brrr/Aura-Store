@@ -5,8 +5,6 @@ interface ProtocolHaltModalProps {
   onClose: () => void;
 }
 
-const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*_-+=<>?/|\\█▓▒░";
-
 const TERMINAL_LINES = [
   "> DISCONNECTION ATTEMPT DETECTED",
   "> SCANNING ACCOUNT ID: 000.666",
@@ -16,33 +14,16 @@ const TERMINAL_LINES = [
   "> RESULT: INCONCLUSIVE — HUMAN REQUIRED",
 ];
 
-function useGlitchText(text: string, active: boolean) {
-  const [out, setOut] = useState(text);
-  useEffect(() => {
-    if (!active) { setOut(text); return; }
-    const id = setInterval(() => {
-      if (Math.random() > 0.45) {
-        const arr = text.split("");
-        const n = Math.floor(Math.random() * 3) + 1;
-        for (let i = 0; i < n; i++) {
-          arr[Math.floor(Math.random() * arr.length)] =
-            GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
-        }
-        setOut(arr.join(""));
-        setTimeout(() => setOut(text), 150 + Math.random() * 100);
-      }
-    }, 180);
-    return () => clearInterval(id);
-  }, [text, active]);
-  return out;
-}
-
+import GlichLetters from "./GlichLetters";
 function useTerminal() {
   const [lines, setLines] = useState<string[]>([]);
   useEffect(() => {
     let i = 0;
     const step = () => {
-      setLines((prev) => [...prev.slice(-4), TERMINAL_LINES[i % TERMINAL_LINES.length]]);
+      setLines((prev) => [
+        ...prev.slice(-4),
+        TERMINAL_LINES[i % TERMINAL_LINES.length],
+      ]);
       i++;
     };
     step();
@@ -54,8 +35,6 @@ function useTerminal() {
 
 export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
   const [reason, setReason] = useState("");
-  const headline = useGlitchText("PROTOCOL: DISCONNECTION", true);
-  const subline  = useGlitchText("HALT — ERROR CODE: CUT-90", true);
   const termLines = useTerminal();
 
   return (
@@ -73,7 +52,8 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 4px)",
+            background:
+              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 4px)",
           }}
         />
 
@@ -97,9 +77,9 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
           {/* ── Top bar ───────────────────────────── */}
           <div className="flex items-center justify-between border-b border-white/20 px-5 py-2">
             <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-red-500 opacity-80" />
-              <div className="w-2 h-2 rounded-full bg-yellow-400 opacity-60" />
-              <div className="w-2 h-2 rounded-full bg-white/20" />
+              <div className="w-2 h-2 rounded-full bg-red-500 opacity-100" />
+              <div className="w-2 h-2 rounded-full bg-yellow-400 opacity-100" />
+              <div className="w-2 h-2 rounded-full bg-white" />
             </div>
             <span className="text-[10px] tracking-[0.4em] uppercase text-white/30">
               AURA OS — RETENTION MODULE v2.5
@@ -110,25 +90,26 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
           <div className="px-6 pt-6 pb-2">
             <div className="mb-1">
               <span
-                className="text-[12px] tracking-[0.5em] uppercase text-red-400"
+                className="text-[12px] tracking-[0.5em] uppercase text-red-400 flex items-center gap-1"
                 style={{ fontVariantNumeric: "tabular-nums" }}
               >
-                ⚠ {headline}
+                ⚠
+                <GlichLetters text="PROTOCOL: DISCONNECTION" active={true} />
               </span>
             </div>
             {/* Wrapper ensures minimum height so it doesn't collapse/expand if it wraps during glitch */}
             <div className="min-h-[38px] flex items-center">
-              <div
+              <GlichLetters
+                text="HALT — ERROR CODE: CUT-90"
+                active={true}
                 className="text-[44px] font-black leading-none tracking-[-0.03em] text-white whitespace-nowrap"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                {subline}
-              </div>
+              />
             </div>
             <p className="text-[11px] tracking-[0.25em] uppercase text-white/40 mt-3 leading-relaxed">
-              La línea de corte ha alcanzado el límite permitido del 90%.
+              The cut line has reached the maximum allowed limit of 90%.
               <br />
-              El sistema no puede autorizar una desconexión completa.
+              The system cannot authorize a complete disconnection.
             </p>
           </div>
 
@@ -148,7 +129,11 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
               >
                 {line}
                 {i === termLines.length - 1 && (
-                  <span style={{ animation: "cursorblink 1s step-end infinite" }}>█</span>
+                  <span
+                    style={{ animation: "cursorblink 1s step-end infinite" }}
+                  >
+                    █
+                  </span>
                 )}
               </motion.div>
             ))}
@@ -158,16 +143,16 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
           <div className="px-6 pb-4">
             <label
               htmlFor="cut-reason"
-              className="block text-[10px] tracking-[0.35em] uppercase text-white/50 mb-3 mt-1"
+              className="block text-[10px] tracking-[0.35em] text-white/50 mb-3 mt-1 uppercase"
             >
-              ¿POR QUÉ QUIERES CORTAR CON AURA STORE?
+              Why do you want to cut with Aura Store?
             </label>
             <input
               id="cut-reason"
               type="text"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="tu razón aquí... (no hay razón válida)"
+              placeholder="your reason here... (no valid reason)"
               className="w-full border border-white/20 bg-transparent px-4 py-3 text-[12px] tracking-widest text-white/70 placeholder:text-white/20 outline-none focus:border-white/50 transition-colors"
               style={{ fontFamily: "Montserrat, monospace" }}
             />

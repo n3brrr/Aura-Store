@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$_-=";
-const BATCH_TEXT = "LOT-2025-AURA-001";
+const BATCH_TEXT = `LOT-${new Date().getFullYear()}-AURA-001`;
 
 function useScrambleHover(text: string) {
   const [out, setOut] = useState(text);
@@ -51,18 +51,11 @@ export default function FooterBatchInfo() {
       {/* Meta rows */}
       <div className="flex flex-col gap-[3px] items-end">
         <div className="flex items-center gap-3">
-          <span
-            className="text-[7.5px] tracking-[0.3em] uppercase opacity-45"
-            style={{ fontFamily: "Syne, sans-serif" }}
-          >
+          <span className="text-[10px] tracking-[0.3em] uppercase opacity-100 font-syne">
             BATCH
           </span>
           <span
-            className="text-[9px] font-bold tracking-widest cursor-default select-none transition-all"
-            style={{
-              fontFamily: "Montserrat, monospace",
-              fontVariantNumeric: "tabular-nums",
-            }}
+            className="text-[9px] font-bold tracking-widest cursor-default select-none transition-all font-montserrat tabular-nums"
             onMouseEnter={() => setActive(true)}
             onMouseLeave={() => setActive(false)}
           >
@@ -71,31 +64,19 @@ export default function FooterBatchInfo() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span
-            className="text-[10px] tracking-[0.3em] uppercase opacity-45"
-            style={{ fontFamily: "Syne, sans-serif" }}
-          >
+          <span className="text-[10px] tracking-[0.3em] uppercase opacity-100 font-syne">
             MADE IN
           </span>
-          <span
-            className="text-[12px] font-bold tracking-widest"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
+          <span className="text-[12px] font-bold tracking-widest font-montserrat">
             INTERNET — SINCE MMXXV
           </span>
         </div>
 
         <div className="flex items-center gap-3">
-          <span
-            className="text-[10px] tracking-[0.3em] uppercase opacity-45"
-            style={{ fontFamily: "Syne, sans-serif" }}
-          >
+          <span className="text-[10px] tracking-[0.3em] uppercase opacity-100 font-syne">
             ORIGIN
           </span>
-          <span
-            className="text-[12px] font-bold tracking-widest"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
+          <span className="text-[12px] font-bold tracking-widest font-montserrat">
             NET — 000.000.000.000
           </span>
         </div>
@@ -110,16 +91,10 @@ export default function FooterBatchInfo() {
               key={label}
               className="flex flex-col items-center gap-[2px] group cursor-default"
             >
-              <span
-                className="text-[20px] leading-none transition-transform group-hover:scale-125"
-                style={{ fontFamily: "monospace" }}
-              >
+              <span className="text-[20px] leading-none transition-transform group-hover:scale-125 font-syne">
                 {symbol}
               </span>
-              <span
-                className="text-[7.5px] tracking-[0.2em] uppercase opacity-40 group-hover:opacity-100 transition-opacity"
-                style={{ fontFamily: "Syne, sans-serif" }}
-              >
+              <span className="text-[7.5px] tracking-[0.2em] uppercase opacity-80 group-hover:opacity-100 transition-opacity font-syne">
                 {label}
               </span>
             </div>
@@ -132,16 +107,10 @@ export default function FooterBatchInfo() {
           style={{ transform: "rotate(-5deg)" }}
         >
           <div className="flex flex-col items-center">
-            <span
-              className="text-[9px] tracking-[0.4em] uppercase font-black"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
+            <span className="text-[9px] tracking-[0.4em] uppercase font-black font-syne">
               QC
             </span>
-            <span
-              className="text-[9px] tracking-[0.3em] uppercase font-black"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
+            <span className="text-[9px] tracking-[0.3em] uppercase font-black font-syne">
               PASSED
             </span>
           </div>

@@ -45,8 +45,7 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center w-full select-none"
-      style={{ height: 32 }}
+      className="relative flex items-center w-full select-none h-32"
       aria-label="Drag to cut the label"
     >
       {/* ── Dashed line with cut effect ─────────────── */}
@@ -54,11 +53,20 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
       <motion.div
         className="absolute left-8 h-px pointer-events-none"
         style={{
-          top: "calc(50% + 2px)", // slightly lower to look separated
+          top: "calc(50% + 5px)", // slightly lower to look separated
           width: cutWidth,
           borderTop: "1px dashed rgba(10,10,10,0.4)",
         }}
       />
+      <motion.div
+        className="absolute left-8 h-px pointer-events-none"
+        style={{
+          top: "calc(50% - 5px)", // slightly lower to look separated
+          width: cutWidth,
+          borderTop: "1px dashed rgba(10,10,10,0.4)",
+        }}
+      />
+
       {/* Right segment (still to be cut) — clear dashed line */}
       <motion.div
         className="absolute top-1/2 right-0 pointer-events-none"
@@ -82,7 +90,7 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
         style={{ x, cursor: isHalted ? "not-allowed" : "grab" }}
         whileDrag={{ cursor: "grabbing", scale: 1.15 }}
         className="relative z-10 flex items-center justify-center w-8 h-8 shrink-0"
-        title="Arrastra para cortar"
+        title="Drag to cut the label"
       >
         {/* Scissors icon */}
         <svg
@@ -94,7 +102,7 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ pointerEvents: "none" }}
+          className="pointer-events-none"
         >
           <circle cx="6" cy="6" r="3" />
           <circle cx="6" cy="18" r="3" />
@@ -110,30 +118,14 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ delay: 0.8 }}
-          className="absolute left-10 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontSize: "9px",
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            opacity: 0.4,
-          }}
+          className="absolute left-10 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne font-[10px] tracking-[0.4em] uppercase opacity-100"
         >
           DRAG TO CUT →
         </motion.span>
       )}
       {/* Progress % badge */}
       {progress > 0 && progress < 1 && (
-        <motion.span
-          className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{
-            fontFamily: "Montserrat, monospace",
-            fontSize: "10px",
-            letterSpacing: "0.25em",
-            opacity: 0.5,
-            fontVariantNumeric: "tabular-nums",
-          }}
-        >
+        <motion.span className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne font-[10px] tracking-[0.4em] uppercase opacity-100">
           {Math.round(progress * 100)}%
         </motion.span>
       )}

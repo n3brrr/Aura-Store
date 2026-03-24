@@ -1,8 +1,7 @@
 // Deterministic pseudo-barcode — no external lib needed
 const BARS = [
-  3, 1, 2, 1, 4, 1, 1, 2, 3, 1, 2, 1, 1, 3, 1, 2, 4, 1, 1, 2,
-  3, 1, 1, 2, 1, 4, 2, 1, 3, 1, 2, 1, 1, 4, 1, 2, 1, 3, 2, 1,
-  1, 2, 4, 1, 1, 3, 2, 1,
+  3, 1, 2, 1, 4, 1, 1, 2, 3, 1, 2, 1, 1, 3, 1, 2, 4, 1, 1, 2, 3, 1, 1, 2, 1, 4,
+  2, 1, 3, 1, 2, 1, 1, 4, 1, 2, 1, 3, 2, 1, 1, 2, 4, 1, 1, 3, 2, 1,
 ];
 
 const BAR_UNIT = 2.2; // px per unit width
@@ -22,10 +21,7 @@ export default function FooterBarcode() {
   return (
     <div className="flex flex-col items-start gap-2">
       {/* Label */}
-      <span
-        className="text-[9.5px] tracking-[0.4em] uppercase font-syne opacity-50"
-        style={{ fontFamily: "Syne, sans-serif" }}
-      >
+      <span className="text-[10px] tracking-[0.4em] uppercase font-syne opacity-100">
         ITEM REF
       </span>
 
@@ -48,16 +44,13 @@ export default function FooterBarcode() {
               height={BAR_HEIGHT}
               fill="#0a0a0a"
             />
-          ) : null
+          ) : null,
         )}
       </svg>
 
       {/* Human-readable number */}
-      <span
-        className="text-[11px] tracking-[0.25em] font-bold"
-        style={{ fontFamily: "Montserrat, monospace", fontVariantNumeric: "tabular-nums" }}
-      >
-        4001 2025 AURA 0001
+      <span className="text-[11px] tracking-[0.25em] font-bold font-montserrat tabular-nums">
+        4001 {new Date().getFullYear()} AURA 0001
       </span>
     </div>
   );
