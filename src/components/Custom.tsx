@@ -1,4 +1,3 @@
-"use client";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Product3d from "./ui/Product3d";

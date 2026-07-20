@@ -1,9 +1,7 @@
-"use client";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
-const LAUNCH_DATE = new Date(Date.now() + 33 * 24 * 60 * 60 * 1000);
 const GLITCH_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&*_-+=<>?/|\\█▓▒░";
 const TICKER_MSG =

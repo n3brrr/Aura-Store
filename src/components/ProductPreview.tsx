@@ -1,5 +1,4 @@
-"use client";
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useAnimate, animate } from "motion/react";
 import GlichLetters from "./ui/GlichLetters";
 
