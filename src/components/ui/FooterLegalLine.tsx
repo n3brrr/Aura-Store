@@ -1,3 +1,5 @@
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function FooterLegalLine() {
   return (
     <div className="w-full items-center grid grid-cols-3">
@@ -14,7 +16,7 @@ export default function FooterLegalLine() {
         >
           Ruben Torres
         </a>
-        © {new Date().getFullYear()}
+        ©         {CURRENT_YEAR}
       </div>
       <div className="text-[11px] tracking-[0.35em] uppercase font-syne text-right">
         REF. AS-FOOTER-001 — v0.0.1

@@ -1,3 +1,4 @@
+const CURRENT_YEAR = new Date().getFullYear();
 // Deterministic pseudo-barcode — no external lib needed
 const BARS = [
   3, 1, 2, 1, 4, 1, 1, 2, 3, 1, 2, 1, 1, 3, 1, 2, 4, 1, 1, 2, 3, 1, 1, 2, 1, 4,
@@ -34,10 +35,10 @@ export default function FooterBarcode() {
         role="img"
         aria-label="Product barcode"
       >
-        {rects.map((r, i) =>
+        {rects.map((r) =>
           r.isBar ? (
             <rect
-              key={i}
+              key={r.x}
               x={r.x}
               y={0}
               width={r.w}
@@ -50,7 +51,7 @@ export default function FooterBarcode() {
 
       {/* Human-readable number */}
       <span className="text-[11px] tracking-[0.25em] font-bold font-montserrat tabular-nums">
-        4001 {new Date().getFullYear()} AURA 0001
+        4001 {CURRENT_YEAR} AURA 0001
       </span>
     </div>
   );

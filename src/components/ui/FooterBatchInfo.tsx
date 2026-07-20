@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$_-=";
-const BATCH_TEXT = `LOT-${new Date().getFullYear()}-AURA-001`;
+const CURRENT_YEAR = new Date().getFullYear();
+const BATCH_TEXT = `LOT-${CURRENT_YEAR}-AURA-001`;
 
 function useScrambleHover(text: string) {
   const [out, setOut] = useState(text);
