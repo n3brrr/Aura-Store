@@ -27,7 +27,6 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
 
     if (p >= 1 && !isHalted) {
       setIsHalted(true);
-      // Snap back slightly then freeze
       animate(x, maxX, { duration: 0 });
       onHalt();
     }

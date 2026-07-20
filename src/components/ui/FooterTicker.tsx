@@ -16,7 +16,7 @@ export default function FooterTicker() {
         style={{ animation: "footer-ticker 32s linear infinite" }}
       >
         <span className="text-[12px] tracking-[0.32em] uppercase opacity-100 font-syne">
-          {(TICKER_MSG + TICKER_MSG).repeat(2)}
+          {TICKER_MSG.repeat(2)}
         </span>
       </div>
 
