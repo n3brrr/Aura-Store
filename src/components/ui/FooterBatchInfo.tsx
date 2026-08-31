@@ -24,8 +24,8 @@ function useScrambleHover(text: string) {
       const arr = text.split("");
       const n = Math.floor(Math.random() * 3) + 1;
       for (let i = 0; i < n; i++) {
-        arr[Math.floor(Math.random() * arr.length)] =
-          GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        (arr as string[])[Math.floor(Math.random() * arr.length)] =
+          GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]!;
       }
       setOut(arr.join(""));
     }, 55);

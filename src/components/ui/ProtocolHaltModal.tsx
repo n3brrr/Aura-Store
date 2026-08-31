@@ -22,7 +22,7 @@ function useTerminal() {
     const step = () => {
       setLines((prev) => [
         ...prev.slice(-4),
-        TERMINAL_LINES[i % TERMINAL_LINES.length],
+        TERMINAL_LINES[i % TERMINAL_LINES.length]!,
       ]);
       i++;
     };

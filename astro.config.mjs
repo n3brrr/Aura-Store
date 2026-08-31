@@ -6,6 +6,11 @@ import react from '@astrojs/react';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": new URL("./src", import.meta.url).pathname,
+      },
+    },
   },
   integrations: [react()],
 });

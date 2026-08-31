@@ -21,19 +21,25 @@ const TERMINAL_LINES = [
 function useScramble(text: string, interval = 70) {
   const [out, setOut] = useState(text);
   useEffect(() => {
-    const id = setInterval(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timeouts = new Set<number>();
+    const id = window.setInterval(() => {
       if (Math.random() > 0.72) {
         const arr = text.split("");
         const n = Math.random() > 0.5 ? 2 : 1;
         for (let i = 0; i < n; i++) {
-          arr[Math.floor(Math.random() * arr.length)] =
-            GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+          (arr as string[])[Math.floor(Math.random() * arr.length)] =
+            GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]!;
         }
         setOut(arr.join(""));
-        setTimeout(() => setOut(text), 75);
+        const tid = window.setTimeout(() => setOut(text), 75);
+        timeouts.add(tid);
       }
     }, interval);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      timeouts.forEach((t) => clearTimeout(t));
+    };
   }, [text, interval]);
   return out;
 }
@@ -60,7 +66,7 @@ function useTerminal() {
       setLines((prev) => {
         const newLines = [
           ...prev.slice(-5),
-          TERMINAL_LINES[i % TERMINAL_LINES.length],
+          TERMINAL_LINES[i % TERMINAL_LINES.length]!,
         ];
         return newLines;
       });
@@ -90,6 +96,8 @@ function GlitchedWord({
   const [dxC, setDxC] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timeouts = new Set<number>();
     const fire = () => {
       if (Math.random() > 0.42) {
         const y1 = Math.floor(Math.random() * 75);
@@ -103,17 +111,21 @@ function GlitchedWord({
         );
         setDxR(r);
         setDxC(c);
-        setTimeout(
+        const tid = window.setTimeout(
           () => {
             setSliceR("inset(0 0 100% 0)");
             setSliceC("inset(0 0 100% 0)");
           },
           55 + Math.random() * 90,
         );
+        timeouts.add(tid);
       }
     };
-    const id = setInterval(fire, 100 + Math.random() * 160);
-    return () => clearInterval(id);
+    const id = window.setInterval(fire, 100 + Math.random() * 160);
+    return () => {
+      clearInterval(id);
+      timeouts.forEach((t) => clearTimeout(t));
+    };
   }, []);
 
   const base = {

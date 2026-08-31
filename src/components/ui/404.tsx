@@ -8,19 +8,25 @@ function useEncryptedText(text: string) {
   const [display, setDisplay] = useState(text);
 
   useEffect(() => {
-    const id = setInterval(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timeouts = new Set<number>();
+    const id = window.setInterval(() => {
       if (Math.random() > 0.8) {
         const scrambled = text
           .split("")
           .map(
-            () => GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)],
+            () => GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]!,
           )
           .join("");
         setDisplay(scrambled);
-        setTimeout(() => setDisplay(text), 50);
+        const tid = window.setTimeout(() => setDisplay(text), 50);
+        timeouts.add(tid);
       }
     }, 700);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      timeouts.forEach((t) => clearTimeout(t));
+    };
   }, [text]);
 
   return display;

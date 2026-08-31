@@ -23,25 +23,36 @@ export default function GlichLetters({
       setOut(text);
       return;
     }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setOut(text);
+      return;
+    }
 
-    const id = setInterval(() => {
+    const timeouts = new Set<number>();
+    const id = window.setInterval(() => {
       if (Math.random() > 0.45) {
         const arr = text.split("");
         const n = Math.floor(Math.random() * 3) + 1;
         for (let i = 0; i < n; i++) {
           const randomIndex = Math.floor(Math.random() * arr.length);
-          // Don't replace spaces
           if (arr[randomIndex] !== " ") {
             arr[randomIndex] =
-              GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+              GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]!;
           }
         }
         setOut(arr.join(""));
-        setTimeout(() => setOut(text), 150 + Math.random() * 100);
+        const tid = window.setTimeout(
+          () => setOut(text),
+          150 + Math.random() * 100,
+        );
+        timeouts.add(tid);
       }
     }, 180);
 
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      timeouts.forEach((t) => clearTimeout(t));
+    };
   }, [text, active]);
 
   return (
@@ -50,3 +61,6 @@ export default function GlichLetters({
     </span>
   );
 }
+
+// Alias with correct spelling
+export const GlitchLetters = GlichLetters;

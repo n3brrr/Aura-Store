@@ -3,7 +3,7 @@ import { useState } from "react";
 interface FooterLink {
   label: string;
   href: string;
-  col: number; // 0 = left col, 1 = right col
+  col: number;
 }
 
 const LINKS: FooterLink[] = [
@@ -25,50 +25,45 @@ export default function FooterLinkGrid() {
     setChecked((prev) => ({ ...prev, [label]: !prev[label] }));
 
   const renderRow = (link: FooterLink) => (
-    <label
+    <div
       key={link.label}
-      className="flex items-center gap-4 group cursor-pointer py-[8px] px-3 -mx-3 transition-colors hover:bg-black hover:text-[#e5e5e5]"
+      className="flex items-center gap-4 group py-[8px] px-3 -mx-3 transition-colors hover:bg-black hover:text-[#e5e5e5]"
     >
-      <a
-        href={link.href}
-        onClick={(e) => e.stopPropagation()}
-        className="text-[14px] tracking-[0.35em] uppercase font-bold flex-1 transition-colors group-hover:text-[#e5e5e5] align-center justify-center font-syne"
-      >
+      <label className="flex items-center gap-3 cursor-pointer shrink-0">
         <input
           type="checkbox"
           checked={!!checked[link.label]}
           onChange={() => toggle(link.label)}
-          className="appearance-none w-[14px] h-[14px] border border-black group-hover:border-[#e5e5e5] shrink-0 mr-3
+          className="appearance-none w-[14px] h-[14px] border border-black group-hover:border-[#e5e5e5] shrink-0
                    checked:bg-black checked:border-black relative cursor-pointer 
                    after:content-['✓'] after:absolute after:text-[#e5e5e5] after:text-[10px] after:left-[1.5px] after:top-[-1.5px]"
           style={{ accentColor: "black" }}
-          onClick={(e) => {
-            e.stopPropagation();
-            // Navigate when clicking the label area
-          }}
+          aria-label={`Select ${link.label}`}
         />
-
+      </label>
+      <a
+        href={link.href}
+        className="text-[14px] tracking-[0.35em] uppercase font-bold flex-1 transition-colors group-hover:text-[#e5e5e5] font-syne"
+      >
         {link.label}
       </a>
-    </label>
+    </div>
   );
 
   return (
     <div className="w-full">
-      {/* Table header */}
-      <div className="flex items-center justify-between border-b border-black pb-2 mb-2">
+      <div className="flex items-center justify-between border-b border-black pb-2 mb-2 gap-4">
         <span className="text-[12px] tracking-[0.45em] uppercase opacity-100 font-syne">
           COMPOSITION / LINKS
         </span>
-        <span className="text-[12px] tracking-[0.45em] uppercase opacity-100 font-syne">
+        <span className="text-[12px] tracking-[0.45em] uppercase opacity-100 font-syne hidden sm:inline">
           REF. AS-NAV-001
         </span>
       </div>
 
-      {/* Two-column grid */}
-      <div className="grid grid-cols-4 gap-x-12 align-center">
-        <div className="col-span-2">{LEFT_LINKS.map(renderRow)}</div>
-        <div className="col-span-2">{RIGHT_LINKS.map(renderRow)}</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-12">
+        <div className="col-span-1 md:col-span-2">{LEFT_LINKS.map(renderRow)}</div>
+        <div className="col-span-1 md:col-span-2">{RIGHT_LINKS.map(renderRow)}</div>
       </div>
     </div>
   );

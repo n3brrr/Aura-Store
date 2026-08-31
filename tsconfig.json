@@ -11,7 +11,13 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "allowJs": true
+    "moduleResolution": "bundler",
+    "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": false
   }
 }

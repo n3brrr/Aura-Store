@@ -1,9 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Product3d from "./ui/Product3d";
 
+interface ProductSpec {
+  label: string;
+  value: string;
+}
+interface Product {
+  id: string;
+  name: string;
+  svg: string;
+  specs: ProductSpec[];
+}
+
 // ─── Product Data ────────────────────────────────────────────────────────────
-const PRODUCTS = [
+const PRODUCTS: Product[] = [
   {
     id: "001",
     name: "SKELETON PUFFER",
@@ -46,7 +57,22 @@ const PRODUCTS = [
 ];
 
 // ─── Glitch Overlay ──────────────────────────────────────────────────────────
-function GlitchOverlay({ active }) {
+interface GlitchOverlayProps {
+  active: boolean;
+}
+function GlitchOverlay({ active }: GlitchOverlayProps) {
+  const slices = useMemo(
+    () =>
+      [...Array(6)].map((_, i) => ({
+        height: `${3 + Math.random() * 12}%`,
+        top: `${Math.random() * 90}%`,
+        background:
+          i % 2 === 0 ? `rgba(0,0,0,0.08)` : `rgba(255,255,255,0.12)`,
+        tx: (Math.random() - 0.5) * 20,
+      })),
+    [active],
+  );
+
   return (
     <AnimatePresence>
       {active && (
@@ -57,7 +83,6 @@ function GlitchOverlay({ active }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.05 }}
         >
-          {/* Scanline pass */}
           <motion.div
             className="absolute inset-0"
             style={{
@@ -67,24 +92,21 @@ function GlitchOverlay({ active }) {
             animate={{ backgroundPositionY: ["0px", "100px"] }}
             transition={{ duration: 0.15, repeat: 2, ease: "linear" }}
           />
-          {/* RGB shift slices */}
-          {[...Array(6)].map((_, i) => (
+          {slices.map((s, i) => (
             <motion.div
               key={i}
               className="absolute left-0 right-0"
               style={{
-                height: `${3 + Math.random() * 12}%`,
-                top: `${Math.random() * 90}%`,
-                background:
-                  i % 2 === 0 ? `rgba(0,0,0,0.08)` : `rgba(255,255,255,0.12)`,
-                transform: `translateX(${(Math.random() - 0.5) * 20}px)`,
+                height: s.height,
+                top: s.top,
+                background: s.background,
+                transform: `translateX(${s.tx}px)`,
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0] }}
               transition={{ duration: 0.08, delay: i * 0.03, repeat: 2 }}
             />
           ))}
-          {/* White flash pulse */}
           <motion.div
             className="absolute inset-0 bg-white"
             animate={{ opacity: [0.25, 0, 0.15, 0] }}
@@ -97,14 +119,18 @@ function GlitchOverlay({ active }) {
 }
 
 // ─── Scanner Reveal ───────────────────────────────────────────────────────────
-function ScannerReveal({ items, trigger }) {
+interface ScannerRevealProps {
+  items: ProductSpec[];
+  trigger: number;
+}
+function ScannerReveal({ items, trigger }: ScannerRevealProps) {
   return (
     <div className="flex flex-col gap-[2px] mt-3">
       {items.map((item, i) => (
         <AnimatePresence key={`${trigger}-${i}`} mode="wait">
           <motion.div
             key={`${trigger}-${i}`}
-            className="flex items-baseline gap-3 overflow-hidden"
+            className="flex items-baseline gap-3 overflow-hidden relative"
             initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
             animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
             transition={{
@@ -117,7 +143,7 @@ function ScannerReveal({ items, trigger }) {
             }}
           >
             <motion.div
-              className="absolute left-0 right-0 h-1px bg-black/40"
+              className="absolute left-0 right-0 h-px bg-black/40"
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: [0, 1, 0] }}
               transition={{ duration: 0.2, delay: 0.35 + i * 0.08 }}
@@ -128,8 +154,8 @@ function ScannerReveal({ items, trigger }) {
             >
               {item.label}
             </span>
-            <span className="w-full h-3px bg-black/20" />
-            <span className="text-[12px] tracking-[0.18em] text-black/80 font-syne uppercase whitespace-nowrap">
+            <span className="w-full h-px bg-black/20" />
+            <span className="text-[12px] tracking-[0.18em] text-black/80 font-syne uppercase whitespace-nowrap md:whitespace-nowrap whitespace-normal break-words text-right md:text-left flex-1">
               {item.value}
             </span>
           </motion.div>
@@ -141,30 +167,41 @@ function ScannerReveal({ items, trigger }) {
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 export default function AuraStoreHero() {
-  const [active, setActive] = useState(0);
-  const [glitching, setGlitching] = useState(false);
-  const [displayIdx, setDisplayIdx] = useState(0);
-  const [specTrigger, setSpecTrigger] = useState(0);
-  const pendingRef = useRef(null);
+  const [active, setActive] = useState<number>(0);
+  const [glitching, setGlitching] = useState<boolean>(false);
+  const [displayIdx, setDisplayIdx] = useState<number>(0);
+  const [specTrigger, setSpecTrigger] = useState<number>(0);
+  const pendingRef = useRef<number | null>(null);
+  const timeoutsRef = useRef<number[]>([]);
 
-  function handleSelect(idx) {
+  useEffect(() => {
+    return () => {
+      timeoutsRef.current.forEach((id) => clearTimeout(id));
+    };
+  }, []);
+
+  function handleSelect(idx: number): void {
     if (idx === active || glitching) return;
     pendingRef.current = idx;
 
     setGlitching(true);
 
-    setTimeout(() => {
-      setDisplayIdx(pendingRef.current);
-      setActive(pendingRef.current);
+    const t1 = window.setTimeout(() => {
+      if (pendingRef.current !== null) {
+        setDisplayIdx(pendingRef.current);
+        setActive(pendingRef.current);
+      }
     }, 180);
 
-    setTimeout(() => {
+    const t2 = window.setTimeout(() => {
       setGlitching(false);
       setSpecTrigger((t) => t + 1);
     }, 380);
+
+    timeoutsRef.current.push(t1, t2);
   }
 
-  const product = PRODUCTS[displayIdx];
+  const product = PRODUCTS[displayIdx]!;
 
   return (
     <div
@@ -172,10 +209,8 @@ export default function AuraStoreHero() {
       style={{ backgroundColor: "#E8E7E3", fontFamily: "montserrat" }}
       id="custom"
     >
-      {/* ── Glitch Overlay ─────────────────────────────────── */}
       <GlitchOverlay active={glitching} />
 
-      {/* ── Watermark ──────────────────────────────────────── */}
       <div className="absolute inset-0 flex items-center justify-between px-5 pointer-events-none z-0 overflow-hidden m-5">
         <span
           className="text-[14vw] font-black uppercase tracking-tighter"
@@ -201,10 +236,8 @@ export default function AuraStoreHero() {
         </span>
       </div>
 
-      {/* ── CENTRAL PRODUCT IMAGE──── */}
       <Product3d src={product.svg} alt={product.name} displayIdx={displayIdx} />
 
-      {/* ── Bottom Left: Product Info + Specs ──────────────── */}
       <div className="absolute bottom-14 left-22 z-20 max-w-md">
         <AnimatePresence mode="wait">
           <motion.p
@@ -240,34 +273,40 @@ export default function AuraStoreHero() {
         </div>
 
         <motion.button
-          className="mt-5 w-full bg-black text-white text-[10px] tracking-[0.25em] rounded-xl uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all"
+          type="button"
+          className="mt-5 w-full bg-black text-white text-[10px] tracking-[0.25em] rounded-xl uppercase py-3 font-bold hover:bg-black/80 active:scale-[0.98] transition-all cursor-pointer"
           whileHover={{ letterSpacing: "0.32em" }}
           transition={{ duration: 0.15 }}
           onClick={() => window.location.assign("/ComingSoon")}
+          aria-label={`View details for ${product.name}`}
         >
           VIEW DETAILS
         </motion.button>
       </div>
 
-      {/* ── Right: Piece Selector ───────────────────────────── */}
       <div className="absolute right-15 bottom-14 z-20 flex flex-col gap-3">
         {PRODUCTS.map((p, i) => (
           <motion.button
             key={p.id}
+            type="button"
             onClick={() => handleSelect(i)}
-            className={`w-32 h-32 overflow-hidden transition-all duration-350 relative ${
+            className={`w-32 h-32 overflow-hidden transition-all duration-350 relative cursor-pointer ${
               active === i
                 ? "border-[1.5px] border-black"
                 : "border border-black/20 opacity-60 hover:opacity-100"
             }`}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
+            aria-label={`Select ${p.name}`}
+            aria-pressed={active === i}
           >
             <img
               src={p.svg}
               alt={p.name}
               className="w-full h-full object-cover"
               style={{ mixBlendMode: "multiply", backgroundColor: "#ddd" }}
+              loading="lazy"
+              decoding="async"
             />
             {active === i && (
               <motion.div
@@ -280,11 +319,10 @@ export default function AuraStoreHero() {
         ))}
       </div>
 
-      {/* ── Scanner progress bar ────────────────────────────── */}
       <AnimatePresence>
         {glitching && (
           <motion.div
-            className="absolute bottom-0 left-0 h-[2px] bg-black z-40"
+            className="absolute bottom-0 left-0 h-[2px] bg-black z-40 w-full"
             initial={{ scaleX: 0, originX: 0 }}
             animate={{ scaleX: 1 }}
             exit={{ opacity: 0 }}
