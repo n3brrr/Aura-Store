@@ -60,7 +60,7 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
         {/* Modal box */}
         <motion.div
           key="halt-box"
-          className="relative border-2 border-white overflow-hidden"
+          className="relative border-2 border-white overflow-hidden max-h-[90dvh] overflow-y-auto overscroll-contain"
           style={{
             backgroundColor: "#0a0a0a",
             width: "min(640px, 94vw)",
@@ -102,7 +102,7 @@ export default function ProtocolHaltModal({ onClose }: ProtocolHaltModalProps) {
               <GlichLetters
                 text="HALT — ERROR CODE: CUT-90"
                 active={true}
-                className="text-[44px] font-black leading-none tracking-[-0.03em] text-white whitespace-nowrap"
+                className="text-[clamp(1.5rem,9vw,2.75rem)] font-black leading-none tracking-[-0.03em] text-white break-words"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               />
             </div>

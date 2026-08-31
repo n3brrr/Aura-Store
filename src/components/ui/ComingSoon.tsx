@@ -200,7 +200,7 @@ export default function ComingSoon() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden select-none"
+      className="relative w-full min-h-[100dvh] h-[100dvh] overflow-hidden select-none"
       style={{ backgroundColor: "#E8E7E3", fontFamily: "montserrat" }}
     >
       {/* ── CSS keyframes ──────────────────────────────────────── */}
@@ -291,8 +291,7 @@ export default function ComingSoon() {
         </span>
       </div>
 
-      {/* ── Top bar ───────────────────────────────────────────── */}
-      <div className="absolute top-15 left-0 right-0 flex items-start justify-between px-10 pt-7 z-20">
+      <div className="absolute top-12 sm:top-15 left-0 right-0 flex items-start justify-between px-4 sm:px-10 pt-4 sm:pt-7 z-20 gap-2">
         <div className="flex flex-col gap-[3px]">
           <span className="text-[7px] tracking-[0.35em] text-black/28 uppercase">
             SYS : ONLINE — UPLINK ESTABLISHED
@@ -323,8 +322,7 @@ export default function ComingSoon() {
         </div>
       </div>
 
-      {/* ── Left vertical text ────────────────────────────────── */}
-      <div className="absolute left-5 top-0 bottom-0 z-20 flex items-center pointer-events-none">
+      <div className="absolute left-2 sm:left-5 top-0 bottom-0 z-20 hidden sm:flex items-center pointer-events-none">
         <span
           className="text-[7px] tracking-[0.45em] text-black/50 uppercase whitespace-nowrap"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
@@ -333,8 +331,7 @@ export default function ComingSoon() {
         </span>
       </div>
 
-      {/* ── Right vertical text ───────────────────────────────── */}
-      <div className="absolute right-5 top-0 bottom-0 z-20 flex items-center pointer-events-none">
+      <div className="absolute right-2 sm:right-5 top-0 bottom-0 z-20 hidden sm:flex items-center pointer-events-none">
         <span
           className="text-[7px] tracking-[0.45em] text-black/50 uppercase whitespace-nowrap"
           style={{ writingMode: "vertical-rl" }}
@@ -343,23 +340,20 @@ export default function ComingSoon() {
         </span>
       </div>
 
-      {/* ── CENTER: hero words ────────────────────────────────── */}
       <div
-        className="absolute inset-0 flex flex-col justify-center z-10 px-[10%]"
+        className="absolute inset-0 flex flex-col justify-center z-10 px-[6%] sm:px-[10%]"
         style={{ animation: "flicker 11s linear infinite" }}
       >
         <div style={{ marginLeft: 0 }}>
-          <GlitchedWord text="COMING" size="18vw" />
+          <GlitchedWord text="COMING" size="clamp(3rem,18vw,10rem)" />
         </div>
         <div style={{ marginLeft: "3vw", marginTop: "-1.5vw" }}>
-          <GlitchedWord text="SOON" size="22vw" />
+          <GlitchedWord text="SOON" size="clamp(3.5rem,22vw,12rem)" />
         </div>
       </div>
 
-      {/* ── Terminal block (bottom left) ──────────────────────── */}
       <div
-        className="absolute bottom-16 left-16 z-20 flex flex-col gap-[2px]"
-        style={{ maxWidth: "38vw" }}
+        className="absolute bottom-16 left-4 sm:left-16 z-20 flex flex-col gap-[2px] max-w-[90vw] sm:max-w-[38vw]"
       >
         <span className="text-[7px] tracking-[0.3em] text-black/50 uppercase mb-1">
           SYSTEM LOG

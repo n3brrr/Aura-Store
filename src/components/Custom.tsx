@@ -13,7 +13,6 @@ interface Product {
   specs: ProductSpec[];
 }
 
-// ─── Product Data ────────────────────────────────────────────────────────────
 const PRODUCTS: Product[] = [
   {
     id: "001",
@@ -56,7 +55,6 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-// ─── Glitch Overlay ──────────────────────────────────────────────────────────
 interface GlitchOverlayProps {
   active: boolean;
 }
@@ -118,7 +116,6 @@ function GlitchOverlay({ active }: GlitchOverlayProps) {
   );
 }
 
-// ─── Scanner Reveal ───────────────────────────────────────────────────────────
 interface ScannerRevealProps {
   items: ProductSpec[];
   trigger: number;
@@ -130,7 +127,7 @@ function ScannerReveal({ items, trigger }: ScannerRevealProps) {
         <AnimatePresence key={`${trigger}-${i}`} mode="wait">
           <motion.div
             key={`${trigger}-${i}`}
-            className="flex items-baseline gap-3 overflow-hidden relative"
+            className="flex items-baseline gap-2 sm:gap-3 overflow-hidden relative"
             initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
             animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
             transition={{
@@ -150,12 +147,12 @@ function ScannerReveal({ items, trigger }: ScannerRevealProps) {
             />
             <span
               className="text-[9px] tracking-[0.2em] text-black/80 font-syne uppercase shrink-0"
-              style={{ minWidth: "72px" }}
+              style={{ minWidth: "60px" }}
             >
               {item.label}
             </span>
-            <span className="w-full h-px bg-black/20" />
-            <span className="text-[12px] tracking-[0.18em] text-black/80 font-syne uppercase whitespace-nowrap md:whitespace-nowrap whitespace-normal break-words text-right md:text-left flex-1">
+            <span className="w-full h-px bg-black/20 hidden sm:block" />
+            <span className="text-[11px] sm:text-[12px] tracking-[0.15em] sm:tracking-[0.18em] text-black/80 font-syne uppercase break-words text-right flex-1 leading-tight">
               {item.value}
             </span>
           </motion.div>
@@ -165,7 +162,6 @@ function ScannerReveal({ items, trigger }: ScannerRevealProps) {
   );
 }
 
-// ─── Main Component ──────────────────────────────────────────────────────────
 export default function AuraStoreHero() {
   const [active, setActive] = useState<number>(0);
   const [glitching, setGlitching] = useState<boolean>(false);
@@ -205,15 +201,16 @@ export default function AuraStoreHero() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden select-none"
+      className="relative w-full min-h-[100dvh] lg:h-screen lg:overflow-hidden overflow-hidden select-none flex flex-col lg:block py-8 lg:py-0"
       style={{ backgroundColor: "#E8E7E3", fontFamily: "montserrat" }}
       id="custom"
     >
       <GlitchOverlay active={glitching} />
 
-      <div className="absolute inset-0 flex items-center justify-between px-5 pointer-events-none z-0 overflow-hidden m-5">
+      {/* Watermark */}
+      <div className="absolute inset-0 flex items-center justify-between px-3 sm:px-5 pointer-events-none z-0 overflow-hidden m-2 sm:m-5">
         <span
-          className="text-[14vw] font-black uppercase tracking-tighter"
+          className="font-black uppercase tracking-tighter text-[clamp(3rem,14vw,10rem)]"
           style={{
             color: "rgba(0,0,0,0.055)",
             fontStretch: "condensed",
@@ -224,7 +221,7 @@ export default function AuraStoreHero() {
           AURA
         </span>
         <span
-          className="text-[12vw] font-black gap-2 uppercase leading-none tracking-tighter"
+          className="font-black uppercase leading-none tracking-tighter text-[clamp(2.5rem,12vw,8rem)]"
           style={{
             color: "rgba(0,0,0,0.055)",
             fontStretch: "condensed",
@@ -236,9 +233,13 @@ export default function AuraStoreHero() {
         </span>
       </div>
 
-      <Product3d src={product.svg} alt={product.name} displayIdx={displayIdx} />
+      {/* Product image — on mobile takes flex space, on desktop absolute centered */}
+      <div className="relative lg:absolute lg:inset-0 flex items-center justify-center z-10 flex-1 lg:flex-none min-h-[42vh] sm:min-h-[50vh] lg:min-h-0">
+        <Product3d src={product.svg} alt={product.name} displayIdx={displayIdx} className="!relative lg:!absolute" />
+      </div>
 
-      <div className="absolute bottom-14 left-22 z-20 max-w-md">
+      {/* Specs panel */}
+      <div className="relative lg:absolute order-3 lg:order-none bottom-auto lg:bottom-14 left-auto lg:left-22 z-20 w-full lg:max-w-md px-4 sm:px-6 lg:px-0 mt-4 lg:mt-0">
         <AnimatePresence mode="wait">
           <motion.p
             key={`num-${displayIdx}`}
@@ -255,7 +256,7 @@ export default function AuraStoreHero() {
         <AnimatePresence mode="wait">
           <motion.h2
             key={`name-${displayIdx}`}
-            className="text-[22px] font-bold uppercase tracking-[0.05em] leading-none mb-3"
+            className="text-[18px] sm:text-[22px] font-bold uppercase tracking-[0.05em] leading-none mb-3"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
@@ -266,7 +267,7 @@ export default function AuraStoreHero() {
         </AnimatePresence>
 
         <div className="border-t border-black/10 pt-2">
-          <p className="text-[14px] tracking-[0.3em] text-black/60 font-syne uppercase mb-1">
+          <p className="text-[12px] sm:text-[14px] tracking-[0.3em] text-black/60 font-syne uppercase mb-1">
             SPECIFICATIONS
           </p>
           <ScannerReveal items={product.specs} trigger={specTrigger} />
@@ -284,13 +285,14 @@ export default function AuraStoreHero() {
         </motion.button>
       </div>
 
-      <div className="absolute right-15 bottom-14 z-20 flex flex-col gap-3">
+      {/* Thumbnails */}
+      <div className="relative lg:absolute order-2 lg:order-none right-auto lg:right-15 bottom-auto lg:bottom-14 z-20 flex flex-row lg:flex-col gap-3 justify-center lg:justify-start px-4 sm:px-6 lg:px-0 mt-6 lg:mt-0 overflow-x-auto lg:overflow-visible scrollbar-hidden">
         {PRODUCTS.map((p, i) => (
           <motion.button
             key={p.id}
             type="button"
             onClick={() => handleSelect(i)}
-            className={`w-32 h-32 overflow-hidden transition-all duration-350 relative cursor-pointer ${
+            className={`w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 overflow-hidden transition-all duration-350 relative cursor-pointer shrink-0 snap-start ${
               active === i
                 ? "border-[1.5px] border-black"
                 : "border border-black/20 opacity-60 hover:opacity-100"

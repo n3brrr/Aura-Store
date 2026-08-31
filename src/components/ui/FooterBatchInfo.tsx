@@ -48,9 +48,8 @@ export default function FooterBatchInfo() {
   const { out: batchOut, setActive } = useScrambleHover(BATCH_TEXT);
 
   return (
-    <div className="flex flex-col gap-4 items-end">
-      {/* Meta rows */}
-      <div className="flex flex-col gap-[3px] items-end">
+    <div className="flex flex-col gap-4 items-center lg:items-end w-full">
+      <div className="flex flex-col gap-[3px] items-center lg:items-end w-full">
         <div className="flex items-center gap-3">
           <span className="text-[10px] tracking-[0.3em] uppercase opacity-100 font-syne">
             BATCH
@@ -83,8 +82,7 @@ export default function FooterBatchInfo() {
         </div>
       </div>
 
-      {/* QC Stamp + Care symbols */}
-      <div className="flex items-center gap-5">
+      <div className="flex flex-wrap items-center justify-center lg:justify-end gap-5">
         {/* Care symbols */}
         <div className="flex gap-4">
           {CARE_SYMBOLS.map(({ symbol, label }) => (

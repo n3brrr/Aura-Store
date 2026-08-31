@@ -18,30 +18,27 @@ export default function Footer() {
 
   const handleClose = useCallback(() => {
     setModalOpen(false);
-    setCutLineKey((k) => k + 1); // Resets the cut line component entirely
+    setCutLineKey((k) => k + 1);
   }, []);
 
   return (
-    <div className="pt-16 flex flex-col relative w-full">
+    <div className="pt-8 md:pt-16 flex flex-col relative w-full overflow-x-hidden">
       <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-[#E8E7E3] to-transparent z-10 pointer-events-none" />
-      {/* ── The Care Label: cut-line separator lives OUTSIDE the box ── */}
-      <div className="mx-8">
+      <div className="mx-4 sm:mx-6 md:mx-8">
         <FooterCutLine key={cutLineKey} onHalt={handleHalt} />
       </div>
 
-      {/* ── The actual care label container ──────────────────────────── */}
-      <footer className="mx-8 mb-8 border-2 border-t-0 border-black bg-[#e5e5e5] overflow-hidden font-syne">
-        {/* ── Row 1: Barcode ++ Brand stamp ++ Batch/QC ──────────────── */}
+      <footer className="mx-4 sm:mx-6 md:mx-8 mb-8 border-2 border-t-0 border-black bg-[#e5e5e5] overflow-hidden font-syne">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 items-center justify-between px-6 md:px-12 py-8 md:py-10 border-b-2 border-black">
+          <div className="order-2 lg:order-1 flex justify-center lg:justify-start">
+            <FooterBarcode />
+          </div>
 
-        <div className="grid grid-cols-3 items-center justify-between px-12 py-10 border-b-2 border-black">
-          <FooterBarcode />
-
-          {/* Center: Brand stamp */}
-          <div className="flex flex-col items-center gap-1 select-none mt-5">
-            <span className="text-[50px]  font-black uppercase leading-none tracking-[0.02em] font-montserrat">
+          <div className="order-1 lg:order-2 flex flex-col items-center gap-1 select-none">
+            <span className="text-[40px] sm:text-[50px] font-black uppercase leading-none tracking-[0.02em] font-montserrat">
               AURA
             </span>
-            <span className="text-[20px] tracking-[0.4em] uppercase font-bold font-syne">
+            <span className="text-[16px] sm:text-[20px] tracking-[0.4em] uppercase font-bold font-syne">
               STORE
             </span>
             <span className="text-[10px] tracking-[0.4em] uppercase opacity-80 mt-1 font-syne">
@@ -49,26 +46,24 @@ export default function Footer() {
             </span>
           </div>
 
-          <FooterBatchInfo />
+          <div className="order-3 flex justify-center lg:justify-end">
+            <FooterBatchInfo />
+          </div>
         </div>
 
-        {/* ── Row 2: Link Grid ────────────────────────────────────────── */}
-        <div className="px-12 py-8 border-b-2 border-black">
+        <div className="px-6 md:px-12 py-8 border-b-2 border-black">
           <FooterLinkGrid />
         </div>
 
-        {/* ── Row 3: Ticker ───────────────────────────────────────────── */}
         <div className="px-0 py-3 border-b-2 border-black">
           <FooterTicker />
         </div>
 
-        {/* ── Row 4: Legal line ───────────────────────────────────────── */}
-        <div className="px-12 py-5">
+        <div className="px-6 md:px-12 py-5">
           <FooterLegalLine />
         </div>
       </footer>
 
-      {/* ── Protocol Halt Modal ───────────────────────────────────────── */}
       {modalOpen && <ProtocolHaltModal onClose={handleClose} />}
 
       <style>{`

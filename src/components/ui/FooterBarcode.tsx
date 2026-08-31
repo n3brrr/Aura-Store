@@ -20,20 +20,20 @@ export default function FooterBarcode() {
   });
 
   return (
-    <div className="flex flex-col items-start gap-2">
-      {/* Label */}
+    <div className="flex flex-col items-center lg:items-start gap-2 w-full max-w-full">
       <span className="text-[10px] tracking-[0.4em] uppercase font-syne opacity-100">
         ITEM REF
       </span>
 
-      {/* SVG Barcode */}
       <svg
-        width={TOTAL_WIDTH}
+        width="100%"
         height={BAR_HEIGHT}
         viewBox={`0 0 ${TOTAL_WIDTH} ${BAR_HEIGHT}`}
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label="Product barcode"
+        preserveAspectRatio="xMidYMid meet"
+        style={{ maxWidth: TOTAL_WIDTH }}
       >
         {rects.map((r) =>
           r.isBar ? (

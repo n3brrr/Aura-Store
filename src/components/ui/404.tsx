@@ -36,12 +36,11 @@ export default function NotFound() {
   const display404 = useEncryptedText("404");
 
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden font-syne select-none">
+    <div className="relative w-full min-h-[100dvh] h-[100dvh] flex flex-col items-center justify-center overflow-hidden font-syne select-none px-4">
       {/* ── Ruido sutil de fondo ── */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply" />
 
-      {/* ── Top Status Line ── */}
-      <div className="absolute top-10 w-full px-12 flex justify-between items-start text-[8px] font-black uppercase tracking-[0.4em] opacity-40">
+      <div className="absolute top-6 sm:top-10 w-full px-4 sm:px-12 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-2 text-[8px] font-black uppercase tracking-[0.4em] opacity-40 text-center">
         <span>Status: Error_Not_Found</span>
         <span>Aura_OS // Terminal_0.4</span>
       </div>
@@ -53,8 +52,7 @@ export default function NotFound() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* El 404 Encriptado */}
-          <h1 className="text-[25vw] font-black font-montserrat leading-none tracking-tighter text-black flex justify-center items-baseline">
+          <h1 className="text-[clamp(5rem,25vw,12rem)] font-black font-montserrat leading-none tracking-tighter text-black flex justify-center items-baseline">
             <span>{display404}</span>
           </h1>
 

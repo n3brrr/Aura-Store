@@ -86,10 +86,16 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
         dragElastic={0}
         dragMomentum={false}
         onDrag={handleDrag}
-        style={{ x, cursor: isHalted ? "not-allowed" : "grab" }}
+        style={{ x, cursor: isHalted ? "not-allowed" : "grab", touchAction: "pan-y" }}
         whileDrag={{ cursor: "grabbing", scale: 1.15 }}
-        className="relative z-10 flex items-center justify-center w-8 h-8 shrink-0"
+        className="relative z-10 flex items-center justify-center w-11 h-11 md:w-8 md:h-8 shrink-0 before:absolute before:-inset-3 before:content-['']"
         title="Drag to cut the label"
+        role="slider"
+        aria-valuenow={Math.round(progress * 100)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Drag to cut"
+        tabIndex={0}
       >
         {/* Scissors icon */}
         <svg
@@ -117,14 +123,13 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ delay: 0.8 }}
-          className="absolute left-10 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne font-[10px] tracking-[0.4em] uppercase opacity-100"
+          className="absolute left-12 md:left-10 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne text-[10px] tracking-[0.3em] md:tracking-[0.4em] uppercase opacity-100 hidden sm:block"
         >
           DRAG TO CUT →
         </motion.span>
       )}
-      {/* Progress % badge */}
       {progress > 0 && progress < 1 && (
-        <motion.span className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne font-[10px] tracking-[0.4em] uppercase opacity-100">
+        <motion.span className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none pb-10 font-syne text-[10px] tracking-[0.4em] uppercase opacity-100">
           {Math.round(progress * 100)}%
         </motion.span>
       )}
