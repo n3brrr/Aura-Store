@@ -9,21 +9,21 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
 
   return (
     <section
-      className="relative w-full h-[100dvh] min-h-[100dvh] sm:h-svh overflow-hidden font-syne"
+      className="relative w-full h-[100svh] min-h-[600px] sm:min-h-[700px] supports-[height:100dvh]:h-[100dvh] overflow-hidden font-syne"
       id="hero"
     >
-      <div className="absolute inset-[5%] sm:inset-[6%] md:inset-x-12 md:inset-y-[7%] border-2 border-black/60 rounded-xl sm:rounded-2xl z-0 pointer-events-none" />
+      <div className="absolute inset-[4%] sm:inset-[6%] md:inset-x-12 md:inset-y-[7%] border-2 border-black/60 rounded-xl sm:rounded-2xl z-0 pointer-events-none" />
 
-      <div className="absolute inset-0 flex items-center justify-between pb-[18%] sm:pb-[12%] lg:pb-[8%] pointer-events-none select-none z-0">
-        <span className="font-black uppercase font-montserrat leading-none px-[6%] text-black text-[clamp(2rem,10vw,7rem)]">
+      <div className="absolute inset-0 flex items-center justify-between pb-[10%] sm:pb-[12%] lg:pb-[8%] pointer-events-none select-none z-0">
+        <span className="font-black uppercase font-montserrat leading-none px-[5%] sm:px-[6%] text-black text-[clamp(2.2rem,10vw,7rem)]">
           {firstWord}
         </span>
-        <span className="font-black uppercase font-montserrat leading-none px-[4%] lg:px-[3%] text-black text-[clamp(2rem,10vw,7rem)]">
+        <span className="font-black uppercase font-montserrat leading-none px-[3%] sm:px-[4%] lg:px-[3%] text-black text-[clamp(2.2rem,10vw,7rem)]">
           {secondWord}
         </span>
       </div>
 
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[55vh] sm:h-[65vh] md:h-[78vh] max-h-[420px] sm:max-h-none w-auto z-10 pointer-events-none select-none">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[68vh] sm:h-[72vh] md:h-[78vh] w-auto z-10 pointer-events-none select-none">
         <img
           src="/Hero-avatar.svg"
           alt="Aura Avatar"
@@ -33,25 +33,25 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
         />
       </div>
 
-      <div className="absolute inset-0 z-20 flex flex-col justify-end px-[4%] sm:px-[8%]">
-        <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between w-full gap-6 sm:gap-0">
-          <div className="flex flex-col gap-2 sm:gap-3 text-center sm:text-left sm:max-w-[200px] md:max-w-[320px] pb-2 sm:pb-[8%] px-[3%] order-2 sm:order-1">
-            <span className="text-xl sm:text-2xl md:text-3xl leading-none hidden sm:block">
+      <div className="absolute inset-0 z-20 flex flex-col justify-end px-[4%] sm:px-[6%] md:px-[8%] pb-[6%] sm:pb-0">
+        <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between w-full gap-4 sm:gap-0">
+          <div className="flex flex-col gap-2 sm:gap-3 text-left sm:max-w-[200px] md:max-w-[320px] pb-[4%] sm:pb-[8%] px-[2%] sm:px-[3%] w-full sm:w-auto order-2 sm:order-1">
+            <span className="text-xl sm:text-2xl md:text-3xl leading-none">
               〄
             </span>
-            <h2 className="font-extrabold uppercase leading-[0.88] tracking-tighter font-syne text-lg sm:text-xl md:text-2xl lg:text-3xl">
+            <h2 className="font-extrabold uppercase leading-[0.88] tracking-tighter font-syne text-[22px] sm:text-xl md:text-2xl lg:text-3xl">
               Clothes without
               <br />
               excess. Only style.
             </h2>
-            <p className="uppercase font-bold tracking-[0.12em] leading-relaxed opacity-70 text-[10px] sm:text-[9px] md:text-[10px] lg:text-[11px] max-w-[260px] sm:max-w-[180px] mx-auto sm:mx-0">
+            <p className="uppercase font-bold tracking-[0.12em] leading-relaxed opacity-70 text-[10px] sm:text-[9px] md:text-[10px] lg:text-[11px] max-w-[260px] sm:max-w-[180px]">
               Modern silhouettes, natural fabrics, <br /> and honest design. For
               those who choose simplicity.
             </p>
           </div>
 
-          <div className="flex flex-col items-center sm:items-end gap-3 sm:pb-[7%] px-[2%] order-1 sm:order-2 w-full sm:w-auto">
-            <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 backdrop-blur-sm w-full max-w-[280px] sm:w-36 md:w-44 lg:w-[290px]">
+          <div className="flex flex-col items-center sm:items-end gap-3 pb-[4%] sm:pb-[7%] px-[2%] w-full sm:w-auto order-1 sm:order-2">
+            <div className="border border-black/25 rounded-2xl p-1.5 sm:p-2 backdrop-blur-sm w-full max-w-[260px] sm:w-36 md:w-44 lg:w-[290px]">
               <div className="overflow-hidden rounded-xl">
                 <img
                   src="/Hero-new-collection.webp"
@@ -66,7 +66,7 @@ const Hero: React.FC<HeroProps> = ({ brandName }) => {
             <button
               type="button"
               onClick={() => window.location.assign("/ComingSoon")}
-              className="w-full max-w-[280px] sm:w-36 md:w-44 lg:w-[290px] group border-2 border-black/25 rounded-full flex items-center justify-between gap-2 bg-transparent
+              className="w-full max-w-[260px] sm:w-36 md:w-44 lg:w-[290px] group border-2 border-black/25 rounded-full flex items-center justify-between gap-2 bg-transparent
              hover:bg-black hover:text-[#f2f1ef] transition-all duration-400 py-3 sm:py-2.5 md:py-3 px-5 sm:px-4 md:px-5 cursor-pointer"
             >
               <span className="font-black uppercase tracking-[0.15em] text-[12px] sm:text-[11px] md:text-[12px] lg:text-[13px]">
