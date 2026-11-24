@@ -31,7 +31,8 @@ Requires **Node >=22.12**.
 - **Custom fonts** (Montserrat, Syne) declared via `@font-face` in `src/styles/global.css`, assigned to Tailwind theme as `font-montserrat` / `font-syne`.
 - **CSS**: Brutalist aesthetic — paper texture overlay, `mix-blend-mode: multiply`, all-caps headings with tight tracking.
 - **TypeScript**: extends `astro/tsconfigs/strict`. JSX is `react-jsx`.
-- **No tests, no lint/formatter config, no CI** in this repo.
+- **No tests, no lint/formatter config** in this repo.
+- **CI**: `.github/workflows/ci.yml` runs `pnpm install --frozen-lockfile` and `pnpm build` on pull requests to `dev` and `main`.
 
 ## Generated / ignored
 
