@@ -57,7 +57,7 @@ import "../styles/global.css";
       });
 
       let rafId = 0;
-      function raf(time) {
+      function raf(time: number) {
         lenis.raf(time);
         rafId = requestAnimationFrame(raf);
       }
