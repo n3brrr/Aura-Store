@@ -16,10 +16,7 @@ test.describe('home page', () => {
     expect(pageErrors).toEqual([]);
   });
 
-  // Fixme: the Hero component in src/pages/index.astro has no client:* directive,
-  // so its onClick never hydrates and the button does nothing. Add client:load to
-  // <Hero /> to fix it, then change test.fixme to test.
-  test.fixme('New Collection button opens the coming soon page', async ({ page }) => {
+  test('New Collection button opens the coming soon page', async ({ page }) => {
     await page.goto('/');
 
     await page.getByRole('button', { name: 'New Collection' }).click();
