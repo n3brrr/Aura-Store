@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const GLITCH_CHARS =
@@ -186,17 +186,6 @@ export default function ComingSoon() {
   const clock = useClock();
   const txId = useScramble("TX-2025-AURA-009", 85);
   const termLines = useTerminal();
-
-  // Horizontal noise slices during flash
-  const [slices] = useState(() =>
-    [...Array(7)].map(() => ({
-      top: `${5 + Math.random() * 85}%`,
-      height: `${3 + Math.random() * 14}%`,
-      color:
-        Math.random() > 0.5 ? "rgba(210,20,20,0.18)" : "rgba(0,190,210,0.15)",
-      tx: `${(Math.random() - 0.5) * 38}px`,
-    })),
-  );
 
   return (
     <div
