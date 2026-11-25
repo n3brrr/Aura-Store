@@ -81,10 +81,11 @@ pnpm dev   # http://localhost:4321
 | `pnpm build` | Builds the static site to `dist/` |
 | `pnpm preview` | Serves the `dist/` build locally, to check it before deploying |
 | `pnpm astro` | Runs the Astro CLI, for example `pnpm astro -- --help` |
+| `pnpm test:e2e` | Runs the Playwright end-to-end tests in `e2e/` against the production build |
 
 ## Quality and tests
 
-There is no test suite and no linter configuration yet. The build is the quality gate: the CI workflow in `.github/workflows/ci.yml` runs on pull requests to `dev` and `main`. It installs with `pnpm install --frozen-lockfile` and then runs `pnpm build`.
+The end-to-end suite lives in `e2e/` and runs with Playwright on desktop and mobile projects. It builds the site and serves `dist/` before running. There is no linter configuration yet. The CI workflow in `.github/workflows/ci.yml` runs on pull requests to `dev` and `main` with `pnpm install --frozen-lockfile` and `pnpm build`; running the end-to-end suite in CI is a separate change.
 
 ## Deployment
 
