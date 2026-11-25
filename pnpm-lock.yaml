@@ -1524,8 +1524,8 @@ packages:
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
-  baseline-browser-mapping@2.10.35:
-    resolution: {integrity: sha512-honAfLBde0HAFLdNyBEfuuENkF6zR+ozxqxa/2zJKHBe1qzLqyTSeRKpdPEHAP03rlDGyQOPnCSxnVpVqQo9Mg==}
+  baseline-browser-mapping@2.11.39:
+    resolution: {integrity: sha512-Q9buOYhr2ggrEZpImICecZTJHCCd8yXkRUokFlUEQ8uiD6oP82F4W4jWnhOHZYV+wlvrC51V7Wy0ULyWjil5Wg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -3980,13 +3980,13 @@ snapshots:
 
   bail@2.0.2: {}
 
-  baseline-browser-mapping@2.10.35: {}
+  baseline-browser-mapping@2.11.39: {}
 
   boolbase@1.0.0: {}
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.35
+      baseline-browser-mapping: 2.11.39
       caniuse-lite: 1.0.30001797
       electron-to-chromium: 1.5.370
       node-releases: 2.0.47
