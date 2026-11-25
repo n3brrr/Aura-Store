@@ -19,7 +19,7 @@ export default function ProductPreview({
   category,
   tag,
 }: ProductPreviewProps) {
-  const [scope, animateEl] = useAnimate();
+  const [scope] = useAnimate();
   const primaryRef = useRef<HTMLImageElement>(null);
   const secondaryRef = useRef<HTMLImageElement>(null);
   const scanLineRef = useRef<HTMLDivElement>(null);

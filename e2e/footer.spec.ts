@@ -2,12 +2,6 @@ import { test, expect } from '@playwright/test';
 import { dragCutLineToEnd } from './helpers/cut-line';
 import { expectHydrated } from './helpers/hydration';
 
-// Known bug: FooterCutLine computes its drag limit on the first render, when
-// containerRef is still null, so the limit falls back to 300px (about 27% of the
-// track). Motion fixes drag constraints at drag start, so the slider stops at
-// about 27% and the halt modal never opens on the first drag. The three fixme
-// tests below describe the intended behaviour and run once the bug is fixed.
-
 test.describe('footer cut line', () => {
   test('dragging the cut line moves the slider', async ({ page }) => {
     await page.goto('/');
@@ -29,8 +23,7 @@ test.describe('footer cut line', () => {
       .toBeGreaterThan(0);
   });
 
-  test.fixme('dragging the cut line past its limit opens the halt modal', async ({ page }) => {
-    // Fixme: drag limit bug, see the comment at the top of this file.
+  test('dragging the cut line past its limit opens the halt modal', async ({ page }) => {
     await page.goto('/');
 
     await dragCutLineToEnd(page);
@@ -40,8 +33,7 @@ test.describe('footer cut line', () => {
     ).toBeVisible();
   });
 
-  test.fixme('the halt modal accepts a reason', async ({ page }) => {
-    // Fixme: drag limit bug, see the comment at the top of this file.
+  test('the halt modal accepts a reason', async ({ page }) => {
     await page.goto('/');
     await dragCutLineToEnd(page);
 
@@ -51,8 +43,7 @@ test.describe('footer cut line', () => {
     await expect(reason).toHaveValue('Too many emails');
   });
 
-  test.fixme('aborting the halt modal closes it and resets the cut line', async ({ page }) => {
-    // Fixme: drag limit bug, see the comment at the top of this file.
+  test('aborting the halt modal closes it and resets the cut line', async ({ page }) => {
     await page.goto('/');
     await dragCutLineToEnd(page);
 

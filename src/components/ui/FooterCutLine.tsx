@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "motion/react";
 
 interface FooterCutLineProps {
@@ -17,6 +17,21 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
   const getMaxX = useCallback(() => {
     if (!containerRef.current) return 300;
     return containerRef.current.clientWidth * HALT_THRESHOLD;
+  }, []);
+
+  // Drag limit handed to motion. Motion reads drag constraints when a drag
+  // starts, so a value computed during the first render (before the container
+  // exists) would stick for the whole drag. Measure after mount and on resize.
+  const [dragLimit, setDragLimit] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => setDragLimit(el.clientWidth * HALT_THRESHOLD);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const handleDrag = useCallback(() => {
@@ -82,7 +97,7 @@ export default function FooterCutLine({ onHalt }: FooterCutLineProps) {
       <motion.div
         drag="x"
         dragDirectionLock
-        dragConstraints={{ left: 0, right: getMaxX() }}
+        dragConstraints={{ left: 0, right: dragLimit }}
         dragElastic={0}
         dragMomentum={false}
         onDrag={handleDrag}
