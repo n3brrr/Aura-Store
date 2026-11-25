@@ -29,12 +29,6 @@
   "overrides": {
     "vite": "^6.4.5"
   },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
-  },
   "devDependencies": {
     "@astrojs/check": "^0.9.12"
   }
